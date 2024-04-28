@@ -15,34 +15,44 @@ void screenDrawBorders()
     screenClear();
     screenBoxEnable();
     
-    screenGotoxy(MINX, MINY);
+    screenGotoxy(BARRA_MIN_X, MINY);
     printf("%c", BOX_UPLEFT);
 
-    for (int i=MINX+1; i<MAXX; i++)
+    for (int i=BARRA_MIN_X+1; i<BARRA_MAX_X; i++)
     {
         screenGotoxy(i, MINY);
         printf("%c", hbc);
     }
-    screenGotoxy(MAXX, MINY);
+    screenGotoxy(BARRA_MAX_X, MINY);
     printf("%c", BOX_UPRIGHT);
 
-    for (int i=MINY+1; i<MAXY; i++)
+    for (int i=MINY+1; i<BARRA_MAX_Y; i++)
     {
-        screenGotoxy(MINX, i);
+        screenGotoxy(BARRA_MIN_X, i);
         printf("%c", vbc);
-        screenGotoxy(MAXX, i);
+        screenGotoxy(BARRA_MAX_X, i);
         printf("%c", vbc);
+    }
+    
+     for (int i=MINX; i<MAXX; i++)
+    {
+        screenGotoxy(i, BARRA_MAX_Y);
+        if(i == BARRA_MIN_X){
+            printf("%c", BOX_DWNLEFT);
+        }
+        else if(i == BARRA_MAX_X){
+            printf("%c", BOX_DWNRIGHT);
+        }
+        else{
+        printf("%c", hbc);
+        }
     }
 
-    screenGotoxy(MINX, MAXY);
-    printf("%c", BOX_DWNLEFT);
-    for (int i=MINX+1; i<MAXX; i++)
+    screenGotoxy(MINX, LINHA_DOIS_Y);
+     for (int i=MINX; i<MAXX; i++)
     {
-        screenGotoxy(i, MAXY);
         printf("%c", hbc);
     }
-    screenGotoxy(MAXX, MAXY);
-    printf("%c", BOX_DWNRIGHT);
 
     screenBoxDisable();
     
