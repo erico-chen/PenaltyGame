@@ -9,8 +9,12 @@
 #include "keyboard.h"
 #include "timer.h"
 
-int x = 30, y = 10;
+int x = 50, y = 30;
 int incX = 1, incY = 1;
+
+int esquerdaBaixoX = 30, esquerdaBaixoY = 10;
+int meioBaixoX = 50, meioBaixoY = 10;
+int direitaBaixoX = 70, direitaBaixoY = 10;
 
 // struct coordenadas {
 //     struct pontoZero {
@@ -44,6 +48,13 @@ int incX = 1, incY = 1;
 // };
 
 
+// Essa será a coordenada 0 da bola
+// Ponto zero: 50,30
+// Meio do gol: 50, 10
+// Lado esquerdo gol: 30, 10
+// Lado direito gol: 70, 10
+// W == 119
+
 // Função para desenhar a bola
 void chamaNaBola() {
     printf("۝");
@@ -52,20 +63,16 @@ void chamaNaBola() {
 void printHello(int nextX, int nextY)
 {
     screenSetColor(CYAN, DARKGRAY);
+    
     screenGotoxy(x, y);
-    printf("           ");
-    // Essa será a coordenada 0 da bola
-    // Ponto zero: 50,30
-    // Meio do gol: 50, 10
-    // Lado esquerdo gol: 30, 10
-    // Lado direito gol: 70, 10
-
+    printf("   "); // LIMPA A ÁREA DA BOLA
+    
     x = nextX;
     y = nextY;
+
     screenGotoxy(x, y);
     chamaNaBola();
 }
-
 
 int main() 
 {
@@ -84,10 +91,25 @@ int main()
         if (keyhit()) 
         {
             ch = readch();
-            screenUpdate();
+
+            if (ch == 97) {
+                printHello(esquerdaBaixoX,esquerdaBaixoY);
+                screenUpdate();
+            }
+            else if (ch == 119) {
+                printHello(meioBaixoX,meioBaixoY);
+                screenUpdate();
+            }
+            else if (ch == 100) {
+                printHello(direitaBaixoX,direitaBaixoY);
+                screenUpdate();
+
+            }
+            
         }
 
         // Update game state (move elements, verify collision, etc)
+        
         if (timerTimeOver() == 1)
         {
             int newX = x + incX;
