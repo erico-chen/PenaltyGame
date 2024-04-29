@@ -14,15 +14,21 @@
 int x = 34, y = 12;
 int incX = 1, incY = 1;
 
+// Função para desenhar a bola
+void chamaNaBola() {
+    printf("۝");
+}
+
 void printHello(int nextX, int nextY)
 {
     screenSetColor(CYAN, DARKGRAY);
     screenGotoxy(x, y);
     printf("           ");
-    x = nextX;
-    y = nextY;
+    // Essa será a coordenada 0 da bola
+    x = 50;
+    y = 30;
     screenGotoxy(x, y);
-    printf("Hello World");
+    chamaNaBola();
 }
 
 void printKey(int ch)
