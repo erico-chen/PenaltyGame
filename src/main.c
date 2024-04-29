@@ -1,8 +1,6 @@
 /**
- * main.h
- * Created on Aug, 23th 2023
- * Author: Tiago Barros
- * Based on "From C to C++ course - 2002"
+ gcc ./src/*.c -I./include -o penalty
+ ./penalty
 */
 
 #include <string.h>
@@ -11,8 +9,40 @@
 #include "keyboard.h"
 #include "timer.h"
 
-int x = 34, y = 12;
+int x = 30, y = 10;
 int incX = 1, incY = 1;
+
+// struct coordenadas {
+//     struct pontoZero {
+//         int x = 50;
+//         int y = 30;
+//     };
+//     struct meioBaixo {
+//         int x = 50;
+//         int y = 10;
+//     };
+//     struct meioAlto {
+//         int x = 0;
+//         int y = 0;
+//     };
+//     struct esquerdaBaixo {
+//         int x = 30;
+//         int y = 10;
+//     };
+//     struct esquerdaAlto {
+//         int x = 0;
+//         int y = 0;
+//     };
+//     struct direitaBaixo {
+//         int x = 70;
+//         int y = 10;
+//     };
+//     struct direitaAlto {
+//         int x = 0;
+//         int y = 0;
+//     };
+// };
+
 
 // Função para desenhar a bola
 void chamaNaBola() {
@@ -25,30 +55,17 @@ void printHello(int nextX, int nextY)
     screenGotoxy(x, y);
     printf("           ");
     // Essa será a coordenada 0 da bola
-    x = 50;
-    y = 30;
+    // Ponto zero: 50,30
+    // Meio do gol: 50, 10
+    // Lado esquerdo gol: 30, 10
+    // Lado direito gol: 70, 10
+
+    x = nextX;
+    y = nextY;
     screenGotoxy(x, y);
     chamaNaBola();
 }
 
-void printKey(int ch)
-{
-    screenSetColor(YELLOW, DARKGRAY);
-    screenGotoxy(35, 22);
-    printf("Key code :");
-
-    screenGotoxy(34, 23);
-    printf("            ");
-    
-    if (ch == 27) screenGotoxy(36, 23);
-    else screenGotoxy(39, 23);
-
-    printf("%d ", ch);
-    while (keyhit())
-    {
-        printf("%d ", readch());
-    }
-}
 
 int main() 
 {
@@ -67,7 +84,6 @@ int main()
         if (keyhit()) 
         {
             ch = readch();
-            printKey(ch);
             screenUpdate();
         }
 
@@ -79,7 +95,6 @@ int main()
             int newY = y + incY;
             if (newY >= MAXY-1 || newY <= MINY+1) incY = -incY;
 
-            printKey(ch);
             printHello(newX, newY);
 
             screenUpdate();
