@@ -16,3 +16,7 @@ $ gcc ./src/*.c -I./include -o penalty
 ```
 $ ./penalty
 ```
+## 👩‍💻 Membros 
+- Antonio Camelo - apc@cesar.school ✉
+- Ercio Chen - apc@cesar.school ✉
+- Pablo Muniz - apc@cesar.school ✉
