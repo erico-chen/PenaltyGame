@@ -7,7 +7,7 @@
 - Use as teclas "a","q","w","e" e "d" para escolher a posição onde quer chutar.
 - Certifique-se de manter o caps lock desativado.
 
-## Como rodar
+## 💻 Como rodar
 - Deixa o terminal no diretório dos arquivos
 
 ```
