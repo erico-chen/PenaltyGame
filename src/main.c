@@ -19,7 +19,8 @@ typedef struct {
     int y;
 }Coordenada;
 
-int oddsDefesa() {
+int oddsDefesa()
+{
     // 0 = esquerda baixo
     // 1 = meio baixo
     // 2 = direita baixo
@@ -27,11 +28,13 @@ int oddsDefesa() {
     return rand() % 3;
 }
 
-void printaBola() {
+void printaBola()
+{
     printf("⚽");
 }
 
-void printaCobrador() {
+void printaCobrador()
+{
     printf("    \\O\n");
     printf("    /\\\n");
     printf(" __/\\ `\n");
@@ -58,7 +61,9 @@ void movimentaBola(int nextX, int nextY)
 
 }
 
-void welcome() {
+void welcome()
+{
+
     screenInit(0);
 
     printf(" ___  ___  ________  ________  ________          ________  ________     \n");
@@ -79,11 +84,11 @@ void welcome() {
     printf("                                    \\|__|                               \n");
     printf("Escolha o modo de jogo:\n1 - Um jogador\n2 - Dois jogadores\n");
 
+
 }
 
-
-int main() 
-{   
+int singlePlayer() 
+{
     static int ch = 0;
     int ins, outs;
     int i = 0;
@@ -161,7 +166,29 @@ int main()
     return 0;
 }
 
+int main() 
+{   
+    static int ch = 0;
+    welcome();
+    
+    while (ch!=10) {
 
+        if (keyhit()) {
+            ch = readch();
+            if (ch == 49) {
+                screenDestroy();
+                singlePlayer();
+            }
+            else if (ch == 50) {
+                screenDestroy();
+                singlePlayer(); // TODO: dualPlayer()
+            }
+        }
+
+    }
+
+    return 0;
+}
 
 
 // Essa será a coordenada 0 da bola
