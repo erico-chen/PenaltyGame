@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include <unistd.h> 
 
 #include "screen.h"
 #include "keyboard.h"
@@ -42,6 +43,13 @@ void printaCobrador()
 
 }
 
+void printPlacar(int a, int b) {
+
+    screenSetColor(YELLOW, DARKGRAY);
+    screenGotoxy(50, 35);
+    printf("%d X %d", a, b);
+
+}
 
 
 void movimentaBola(int nextX, int nextY)
@@ -84,7 +92,6 @@ void welcome()
     printf("                                    \\|__|                               \n");
     printf("Escolha o modo de jogo:\n1 - Um jogador\n2 - Dois jogadores\n");
 
-
 }
 
 int singlePlayer() 
@@ -103,7 +110,6 @@ int singlePlayer()
     screenInit(1); // Com parametro falso, a quadra nao starta
     keyboardInit();
     timerInit(50);
-    // welcome();
 
     movimentaBola(x, y);
     screenUpdate();
@@ -116,30 +122,89 @@ int singlePlayer()
             i+=1;
             ch = readch();
             int def = oddsDefesa();
+            int alvo_x = 0, alvo_y = 0;
 
-            if (ch == 97 && def != 0) { // A
+            if (ch == 97 && def != 0) { // "A" GOL
                 ins+=1;
-                printf("   Gol[%d]", ins);
+                outs+=0;
 
-                movimentaBola(esquerdaBaixo.x,esquerdaBaixo.y);
+                alvo_x = esquerdaBaixo.x;
+                alvo_y = esquerdaBaixo.y;
+
+                movimentaBola(alvo_x,alvo_y);
+                printPlacar(ins,outs);
                 screenUpdate();
 
             }
-            else if (ch == 119) { // W
-                if (def == 1) {
-                    printf("   Goleiro pegou!");
-                }
-                movimentaBola(meioBaixo.x,meioBaixo.y);
-                screenUpdate();
-            }
-            else if (ch == 100) { // D
-                if (def == 2) {
-                    printf("   Goleiro pegou!");
-                }
-                movimentaBola(direitaBaixo.x,direitaBaixo.y);
+            else if (ch == 97 && def == 0) { // "A" DEFESA
+                ins +=0;
+                outs +=1;
+
+                alvo_x = esquerdaBaixo.x;
+                alvo_y = esquerdaBaixo.y;
+
+                movimentaBola(alvo_x,alvo_y);
+                printPlacar(ins,outs);
                 screenUpdate();
 
             }
+            else if (ch == 119 && def != 0) { // "W" GOL
+                ins+=1;
+                outs+=0;
+
+                alvo_x = meioBaixo.x;
+                alvo_y = meioBaixo.y;
+
+                movimentaBola(alvo_x,alvo_y);
+                printPlacar(ins,outs);
+                screenUpdate();
+
+            }
+            else if (ch == 119 && def == 0) { // "W" DEFESA
+                ins +=0;
+                outs +=1;
+
+                alvo_x = meioBaixo.x;
+                alvo_y = meioBaixo.y;
+
+                movimentaBola(alvo_x,alvo_y);
+                printPlacar(ins,outs);
+                screenUpdate();
+
+            }
+            else if (ch == 100 && def != 0) { // D "GOL"
+                ins+=1;
+                outs+=0;
+
+                alvo_x = direitaBaixo.x;
+                alvo_y = direitaBaixo.y;
+
+                movimentaBola(alvo_x,alvo_y);
+                printPlacar(ins,outs);
+                screenUpdate();
+
+            }
+            else if (ch == 100 && def == 0) { // D "DEFESA"
+                ins+=0;
+                outs+=1;
+
+                alvo_x = direitaBaixo.x;
+                alvo_y = direitaBaixo.y;
+
+                movimentaBola(alvo_x,alvo_y);
+                printPlacar(ins,outs);
+                screenUpdate();
+
+            }
+
+            sleep(1);
+            screenGotoxy(alvo_x,alvo_y);
+            printf(" ");
+            screenUpdate();
+            screenGotoxy(50,30);
+            printf("              ");
+            movimentaBola(50,30);
+            screenUpdate();
             
         }
 
@@ -166,6 +231,11 @@ int singlePlayer()
     return 0;
 }
 
+int dualPlayer() {
+
+    return 0;
+}
+
 int main() 
 {   
     static int ch = 0;
@@ -181,7 +251,7 @@ int main()
             }
             else if (ch == 50) {
                 screenDestroy();
-                singlePlayer(); // TODO: dualPlayer()
+                dualPlayer(); // TODO: dualPlayer()
             }
         }
 
