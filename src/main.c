@@ -124,78 +124,46 @@ int singlePlayer()
             int def = oddsDefesa();
             int alvo_x = 0, alvo_y = 0;
 
-            if (ch == 97 && def != 0) { // "A" GOL
-                ins+=1;
-                outs+=0;
+            if (ch == 97) { // A
+	            if (def != 0) {
+		            ins+=1;
+	            }
+	            else {
+		            outs+=1;
+	            }
 
-                alvo_x = esquerdaBaixo.x;
-                alvo_y = esquerdaBaixo.y;
-
-                movimentaBola(alvo_x,alvo_y);
-                printPlacar(ins,outs);
-                screenUpdate();
-
+	            alvo_x = esquerdaBaixo.x;
+	            alvo_y = esquerdaBaixo.y;
             }
-            else if (ch == 97 && def == 0) { // "A" DEFESA
-                ins +=0;
-                outs +=1;
 
-                alvo_x = esquerdaBaixo.x;
-                alvo_y = esquerdaBaixo.y;
 
-                movimentaBola(alvo_x,alvo_y);
-                printPlacar(ins,outs);
-                screenUpdate();
+            else if (ch == 119) { // W
+	            if (def != 0) {
+		            ins+=1;
+	            }
+	            else {
+		            outs+=1;
+	            }
 
+	            alvo_x = meioBaixo.x;
+	            alvo_y = meioBaixo.y;
             }
-            else if (ch == 119 && def != 0) { // "W" GOL
-                ins+=1;
-                outs+=0;
 
-                alvo_x = meioBaixo.x;
-                alvo_y = meioBaixo.y;
+            else if (ch == 100) { // D
+	            if (def != 0) {
+		            ins+=1;
+	            }
+	            else {
+		            outs+=1;
+	            }
 
-                movimentaBola(alvo_x,alvo_y);
-                printPlacar(ins,outs);
-                screenUpdate();
-
+	            alvo_x = direitaBaixo.x;
+	            alvo_y = direitaBaixo.y;
             }
-            else if (ch == 119 && def == 0) { // "W" DEFESA
-                ins +=0;
-                outs +=1;
 
-                alvo_x = meioBaixo.x;
-                alvo_y = meioBaixo.y;
-
-                movimentaBola(alvo_x,alvo_y);
-                printPlacar(ins,outs);
-                screenUpdate();
-
-            }
-            else if (ch == 100 && def != 0) { // D "GOL"
-                ins+=1;
-                outs+=0;
-
-                alvo_x = direitaBaixo.x;
-                alvo_y = direitaBaixo.y;
-
-                movimentaBola(alvo_x,alvo_y);
-                printPlacar(ins,outs);
-                screenUpdate();
-
-            }
-            else if (ch == 100 && def == 0) { // D "DEFESA"
-                ins+=0;
-                outs+=1;
-
-                alvo_x = direitaBaixo.x;
-                alvo_y = direitaBaixo.y;
-
-                movimentaBola(alvo_x,alvo_y);
-                printPlacar(ins,outs);
-                screenUpdate();
-
-            }
+            movimentaBola(alvo_x,alvo_y);
+	        printPlacar(ins,outs);
+	        screenUpdate();
 
             sleep(1);
             screenGotoxy(alvo_x,alvo_y);
