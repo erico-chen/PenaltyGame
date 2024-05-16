@@ -25,8 +25,10 @@ int oddsDefesa()
     // 0 = esquerda baixo
     // 1 = meio baixo
     // 2 = direita baixo
+    int x;
     srand(time(NULL));
-    return rand() % 3;
+    x = rand() % 3;
+    return x;
 }
 
 void printaBola()
@@ -97,9 +99,9 @@ void welcome()
 int singlePlayer() 
 {
     static int ch = 0;
-    int ins, outs;
+    int ins = 0, outs = 0;
     int i = 0;
-    
+
     Coordenada esquerdaAlto = {5, 12};
     Coordenada esquerdaBaixo = {30, 12};
     Coordenada meioAlto = {0, 0};
@@ -123,7 +125,7 @@ int singlePlayer()
             ch = readch();
             int def = oddsDefesa();
             int alvo_x = 0, alvo_y = 0;
-
+            
             if (ch == 97) { // A
 	            if (def != 0) {
 		            ins+=1;
@@ -138,7 +140,7 @@ int singlePlayer()
 
 
             else if (ch == 119) { // W
-	            if (def != 0) {
+	            if (def != 1) {
 		            ins+=1;
 	            }
 	            else {
@@ -150,7 +152,7 @@ int singlePlayer()
             }
 
             else if (ch == 100) { // D
-	            if (def != 0) {
+	            if (def != 2) {
 		            ins+=1;
 	            }
 	            else {
@@ -162,7 +164,7 @@ int singlePlayer()
             }
 
             movimentaBola(alvo_x,alvo_y);
-	        printPlacar(ins,outs);
+            printPlacar(ins,outs);
 	        screenUpdate();
 
             sleep(1);
@@ -215,7 +217,7 @@ int main()
         if (keyhit()) {
             ch = readch();
             if (ch == 49) {
-                screenDestroy();
+                screenUpdate();
                 singlePlayer();
             }
             else if (ch == 50) {
