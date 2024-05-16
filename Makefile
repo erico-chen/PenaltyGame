@@ -1,9 +1,9 @@
 all:
-	gcc ./src/*.c -I include -o penalti
+	gcc ./src/*.c -I include -o penalty
 
 run:
-	./penalti
+	./penalty
 
 clean:
-	rm penalti
+	rm penalty
 
