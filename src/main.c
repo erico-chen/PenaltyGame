@@ -208,6 +208,7 @@ int main()
 {   
     static int ch = 0;
     welcome();
+    keyboardInit();
     
     while (ch!=10) {
 
@@ -224,6 +225,10 @@ int main()
         }
 
     }
+
+    keyboardDestroy();
+    screenDestroy();
+    timerDestroy();
 
     return 0;
 }
