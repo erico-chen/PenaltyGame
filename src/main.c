@@ -71,28 +71,50 @@ void movimentaBola(int nextX, int nextY)
 
 }
 
-void welcome()
+void pageWelcome()
 {
 
     screenInit(0);
 
-    printf(" ___  ___  ________  ________  ________          ________  ________     \n");
-    printf("|\\  \\|\\  \\|\\   __  \\|\\   __  \\|\\   __  \\        |\\   ___ \\\\|\\   __  \\    \n");
-    printf("\\ \\  \\\\\\  \\ \\  \\|\\  \\ \\  \\|\\  \\ \\  \\|\\  \\       \\ \\  \\_|\\ \\\\ \\  \\|\\  \\   \n");
-    printf(" \\ \\   __  \\ \\  \\\\\\  \\ \\   _  _\\\\ \\   __  \\       \\ \\  \\ \\\\ \\\\ \\  \\\\\\  \\  \n");
-    printf("  \\ \\  \\ \\  \\ \\  \\\\\\\\  \\ \\  \\\\  \\\\ \\  \\ \\  \\       \\ \\  \\_\\\\ \\\\ \\  \\\\\\  \\ \n");
-    printf("   \\ \\__\\ \\__\\ \\_______\\ \\__\\\\ _\\\\ \\__\\ \\__\\       \\ \\_______\\\\ \\_______\\ \n");
-    printf("    \\|__|\\|__|\\|_______|\\|__|\\|__|\\|__|\\|__|        \\|_______|\\|_______| \n");
-    printf(" ________  ________  ___       ___                                      \n");
-    printf("|\\   ____\\|\\   __  \\|\\  \\     |\\  \\                                     \n");
-    printf("\\ \\  \\___|\\ \\  \\|\\  \\ \\  \\    \\ \\  \\                                    \n");
-    printf(" \\ \\  \\  __\\ \\  \\\\\\  \\ \\  \\    \\ \\  \\                                   \n");
-    printf("  \\ \\  \\|\\  \\ \\  \\\\\\  \\ \\  \\____\\ \\__\\                                  \n");
-    printf("   \\ \\_______\\ \\_______\\ \\_______\\|__|                                  \n");
-    printf("    \\|_______|\\|_______|\\|_______|   ___                                \n");
-    printf("                                    |\\__\\                               \n");
-    printf("                                    \\|__|                               \n");
-    printf("Escolha o modo de jogo:\n1 - Um jogador\n2 - Dois jogadores\n");
+    printf(" ____                  _ _            ____                      \n");
+    printf("|  _ \\ ___ _ __   __ _| | |_ _   _   / ___| __ _ _ __ ___   ___ \n");
+    printf("| |_) / _ \\ '_ \\ / _` | | __| | | | | |  _ / _` | '_ ` _ \\ / _ \\\n");
+    printf("|  __/  __/ | | | (_| | | |_| |_| | | |_| | (_| | | | | | |  __/\n");
+    printf("|_|   \\___|_| |_|\\__,_|_|\\__|\\__, |  \\____|\\__,_|_| |_| |_|\\___|\n");
+    printf("                             |___/                               \n");
+
+    printf("\nDigite o número da opção escolhida:\n\n");
+    printf(" [1]   Modo um jogador\n [2]   Modo dois jogadores\n [3]   Como jogar\n [4]   Pontuações salvas\n");
+
+}
+
+void pageManual(){
+
+    screenInit(0);
+
+    printf("  ____                            _                        \n");
+    printf(" / ___|___  _ __ ___   ___       | | ___   __ _  __ _ _ __ \n");
+    printf("| |   / _ \\| '_ ` _ \\ / _ \\   _  | |/ _ \\ / _` |/ _` | '__|\n");
+    printf("| |__| (_) | | | | | | (_) | | |_| | (_) | (_| | (_| | |   \n");
+    printf(" \\____\\___/|_| |_| |_|\\___/   \\___/ \\___/ \\__, |\\__,_|_|   \n");
+    printf("                                          |___/            \n");
+
+    printf("\nUse as teclas A, W e D para cobrar o pênalti.\n");
+    printf("\nVocê terá 5 chances de fazer gol. Caso a sua pontuação seja superior à do goleiro, você vence.\n\n");
+    printf("  A ➡️ chuta para a esquerda\n  W ➡️ chuta para o meio\n  D ➡️ chuta para a direita\n\n");
+    printf(" [1]   Iniciar o jogo\n [0]   Voltar à tela inicial\n");
+}
+
+void pageScores() {
+    
+    screenInit(0);
+
+    printf(" ____                          \n");
+    printf("/ ___|  ___ ___  _ __ ___  ___ \n");
+    printf("\\___ \\ / __/ _ \\| '__/ _ \\/ __|\n");
+    printf(" ___) | (_| (_) | | |  __/\\__ \\\n");
+    printf("|____/ \\___\\___/|_|  \\___||___/\n");
+
 
 }
 
@@ -208,8 +230,8 @@ int dualPlayer() {
 
 int main() 
 {   
-    static int ch = 0;
-    welcome();
+    static int ch = 0, ch_m = 0;
+    pageWelcome();
     keyboardInit();
     
     while (ch!=10) {
@@ -223,6 +245,20 @@ int main()
             else if (ch == 50) {
                 screenDestroy();
                 dualPlayer(); // TODO: dualPlayer()
+            }
+            else if (ch == 51) {
+                screenDestroy();
+                pageManual();
+                if (keyhit()) {
+                    ch_m = readch();
+                    if (ch_m == 48) {
+                        pageWelcome();
+                    }
+                }
+            }
+            else if (ch == 51) {
+                screenDestroy();
+                pageScores();
             }
         }
 
