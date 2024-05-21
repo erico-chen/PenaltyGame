@@ -12,7 +12,7 @@
 #include "keyboard.h"
 #include "timer.h"
 
-int x = 50, y = 30; // Ponto zero da bola
+int x = 75, y = 45; // Ponto zero da bola
 int incX = 1, incY = 1;
 
 typedef struct {
@@ -25,9 +25,12 @@ int oddsDefesa()
     // 0 = esquerda baixo
     // 1 = meio baixo
     // 2 = direita baixo
+    // 3 = esquerda alto
+    // 4 = meio alto
+    // 5 = direita alto
     int x;
     srand(time(NULL));
-    x = rand() % 3;
+    x = rand() % 6;
     return x;
 }
 
@@ -48,7 +51,7 @@ void printaCobrador()
 void printPlacar(int a, int b) {
 
     screenSetColor(YELLOW, DARKGRAY);
-    screenGotoxy(50, 35);
+    screenGotoxy(74, 48);
     printf("%d X %d", a, b);
 
 }
@@ -118,37 +121,55 @@ void pageScores() {
 
 }
 
+void printGoalKeeper(){
+    printf("       @\n");
+    printf("   _ _/  \\_ _\n");
+    printf("  / _      _ \\\n");
+    printf(" / / |    | \\ \\\n");
+    printf("|||  |____|  |||\n");
+    printf("     |	  |\n");
+    printf("     |_ |_|\n");
+    printf("      || ||\n");
+    printf("     <_| |_>\n");
+}
+
 int singlePlayer() 
 {
+    int chances = 0;
+    int t_1 = 0, t_2 = 0;
+    static int lado = 0;
     static int ch = 0;
     int ins = 0, outs = 0;
     int i = 0;
 
-    Coordenada esquerdaAlto = {5, 12};
-    Coordenada esquerdaBaixo = {30, 12};
-    Coordenada meioAlto = {0, 0};
-    Coordenada meioBaixo = {50, 12};
-    Coordenada diretaAlto = {0, 0};
-    Coordenada direitaBaixo = {70, 12};
+    Coordenada esquerdaAlto = {40, 12};
+    Coordenada esquerdaBaixo = {40, 20};
+    Coordenada meioAlto = {75, 12};
+    Coordenada meioBaixo = {75, 20};
+    Coordenada direitaAlto = {110, 12};
+    Coordenada direitaBaixo = {110, 20};
 
     screenInit(1); // Com parametro falso, a quadra nao starta
+    printGoalKeeper();
     keyboardInit();
     timerInit(50);
-
+    printaCobrador();
     movimentaBola(x, y);
     screenUpdate();
 
-    while (ch != 10)
+    while (ch != 10 && chances<5)
     {
 
         if (keyhit()) 
         {
             i+=1;
-            ch = readch();
+            t_1 = readch();
+            t_2 = readch();
+            lado = t_1+t_2;
             int def = oddsDefesa();
             int alvo_x = 0, alvo_y = 0;
             
-            if (ch == 97) { // A
+            if (lado == 212) { // A+S
 	            if (def != 0) {
 		            ins+=1;
 	            }
@@ -160,8 +181,7 @@ int singlePlayer()
 	            alvo_y = esquerdaBaixo.y;
             }
 
-
-            else if (ch == 119) { // W
+            else if (lado == 230) { // W+S
 	            if (def != 1) {
 		            ins+=1;
 	            }
@@ -173,7 +193,7 @@ int singlePlayer()
 	            alvo_y = meioBaixo.y;
             }
 
-            else if (ch == 100) { // D
+            else if (lado == 215) { // D+S
 	            if (def != 2) {
 		            ins+=1;
 	            }
@@ -185,6 +205,46 @@ int singlePlayer()
 	            alvo_y = direitaBaixo.y;
             }
 
+            else if (lado == 216) { // A+W
+	            if (def != 3) {
+		            ins+=1;
+	            }
+	            else {
+		            outs+=1;
+	            }
+
+	            alvo_x = esquerdaAlto.x;
+	            alvo_y = esquerdaAlto.y;
+            }
+
+            else if (lado == 234) { // W+W
+	            if (def != 4) {
+		            ins+=1;
+	            }
+	            else {
+		            outs+=1;
+	            }
+
+	            alvo_x = meioAlto.x;
+	            alvo_y = meioAlto.y;
+            }
+
+            else if (lado == 219) { // D+W
+	            if (def != 5) {
+		            ins+=1;
+	            }
+	            else {
+		            outs+=1;
+	            }
+
+	            alvo_x = direitaAlto.x;
+	            alvo_y = direitaAlto.y;
+            }
+
+            else{ //chutou pra fora
+                outs+=1;
+            }
+
             movimentaBola(alvo_x,alvo_y);
             printPlacar(ins,outs);
 	        screenUpdate();
@@ -193,26 +253,27 @@ int singlePlayer()
             screenGotoxy(alvo_x,alvo_y);
             printf(" ");
             screenUpdate();
-            screenGotoxy(50,30);
+            screenGotoxy(75,45);
             printf("              ");
-            movimentaBola(50,30);
+            movimentaBola(75,45);
             screenUpdate();
+            chances +=1;
             
         }
 
         // Update game state (move elements, verify collision, etc)
         
-        if (timerTimeOver() == 2)
-        {
-            int newX = x + incX;
-            if (newX >= direitaBaixo.x - 1 || newX <= MINX + 1) incX = -incX;
-            int newY = y - incY;
-            if (newY >= MAXY - 1 || newY <= direitaBaixo.y + 1) incY = -incY;
+        // if (timerTimeOver() == 2)
+        // {
+        //     int newX = x + incX;
+        //     if (newX >= direitaBaixo.x - 1 || newX <= MINX + 1) incX = -incX;
+        //     int newY = y - incY;
+        //     if (newY >= MAXY - 1 || newY <= direitaBaixo.y + 1) incY = -incY;
 
-            movimentaBola(newX, newY);
+        //     movimentaBola(newX, newY);
 
-            screenUpdate();
-        }
+        //     screenUpdate();
+        // }
         
     }
 
@@ -224,7 +285,7 @@ int singlePlayer()
 }
 
 int dualPlayer() {
-
+    printGoalKeeper();
     return 0;
 }
 
@@ -238,6 +299,7 @@ int main()
 
         if (keyhit()) {
             ch = readch();
+
             if (ch == 49) {
                 screenUpdate();
                 singlePlayer();
