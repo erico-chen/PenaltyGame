@@ -7,12 +7,13 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h> 
+#include <stdio.h>
 
 #include "screen.h"
 #include "keyboard.h"
 #include "timer.h"
 
-int x = 75, y = 45; // Ponto zero da bola
+int x = 75, y = 30; // Ponto zero da bola
 int incX = 1, incY = 1;
 
 typedef struct {
@@ -131,6 +132,54 @@ void printGoalKeeper(){
     printf("     |_ |_|\n");
     printf("      || ||\n");
     printf("     <_| |_>\n");
+}
+
+
+void pageScoreRegister() {
+  screenInit(0);
+  keyboardInit();
+
+  printf("__     _____   ____  //\\   __     _______ _   _  ____ _____ _   _ _\n");
+  printf("\\ \\   / / _ \\ / ___||/_%c|  \\ \\   / / ____| \\ | |/ ___| ____| | | | |\n", '\\');
+  printf(" \\ \\ / / | | | |   | ____|  \\ \\ / /|  _| |  \\| | |   |  _| | | | | |\n");
+  printf("  \\ V /| |_| | |___|  _|_    \\ V / | |___| |\\  | |___| |___| |_| |_|\n");
+  printf("   \\_/  \\___/ \\____|_____|    \\_/  |_____|_| \\_|\\____|_____|\\___/(_)\n");
+
+  printf("--------------------------------------------------------------------\n");
+  printf("                               ___________\n");
+  printf("                              '._==_==_=_.\n");
+  printf("                              .-\\:      /-.\n");
+  printf("                             | (|:.     |) |\n");
+  printf("                              '-|:.     |-\n");
+  printf("                                \\::.    /\n");
+  printf("                                 '::. .'\n");
+  printf("                                   ) (\n");
+  printf("                                 _.' '._\n");
+  printf("                                `\"\"\"\"\"\"\"`\n");
+  printf("---------------------------------------------------------------------\n");
+
+  // screenGotoxy(x, y);
+  printf("\nDigita teu nome, jogador!");
+  scanf("");
+
+}
+
+int scoreRegister(int score) {
+  // screenInit(0);
+  // keyboardInit();
+  
+  FILE *fptr;
+  char nome[10];
+
+  fptr = fopen("arquivo.txt", "a");
+  
+  scanf("%s", nome);
+
+  fprintf(fptr, "%s" " %d\n", nome, score);
+  fclose(fptr);
+
+  return 0;
+  
 }
 
 int singlePlayer() 
@@ -253,35 +302,39 @@ int singlePlayer()
             screenGotoxy(alvo_x,alvo_y);
             printf(" ");
             screenUpdate();
-            screenGotoxy(75,45);
+            screenGotoxy(75,30);
             printf("              ");
-            movimentaBola(75,45);
+            movimentaBola(75,30);
             screenUpdate();
             chances +=1;
+
             
         }
 
         // Update game state (move elements, verify collision, etc)
         
-        // if (timerTimeOver() == 2)
-        // {
-        //     int newX = x + incX;
-        //     if (newX >= direitaBaixo.x - 1 || newX <= MINX + 1) incX = -incX;
-        //     int newY = y - incY;
-        //     if (newY >= MAXY - 1 || newY <= direitaBaixo.y + 1) incY = -incY;
+        if (timerTimeOver() == 1)
+        {
+            int newX = x + incX;
+            if (newX >= direitaBaixo.x - 1 || newX <= MINX + 1) incX = -incX;
+            int newY = y - incY;
+            if (newY >= MAXY - 1 || newY <= direitaBaixo.y + 1) incY = -incY;
 
-        //     movimentaBola(newX, newY);
+            movimentaBola(newX, newY);
 
-        //     screenUpdate();
-        // }
+            screenUpdate();
+        }
         
     }
+    // keyboardDestroy();
+    // screenDestroy();
+    // timerDestroy();
 
-    keyboardDestroy();
     screenDestroy();
-    timerDestroy();
+    pageScoreRegister();
+    scoreRegister(ins);
 
-    return 0;
+    return ins;
 }
 
 int dualPlayer() {
@@ -291,7 +344,7 @@ int dualPlayer() {
 
 int main() 
 {   
-    static int ch = 0, ch_m = 0;
+    static int ch = 0, ch_m = 0, ins = 0;
     pageWelcome();
     keyboardInit();
     
@@ -317,7 +370,7 @@ int main()
                 screenDestroy();
                 pageManual();
             }
-            else if (ch == 51) {
+            else if (ch == 51) {// TODO : ler arquivo
                 screenDestroy();
                 pageScores();
             }
