@@ -171,7 +171,7 @@ int scoreRegister(int score) {
   FILE *fptr;
   char nome[10];
 
-  fptr = fopen("arquivo.txt", "a");
+  fptr = fopen("scores.txt", "a");
   
   scanf("%s", nome);
 
