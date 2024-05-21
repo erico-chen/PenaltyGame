@@ -102,9 +102,9 @@ void pageManual(){
     printf(" \\____\\___/|_| |_| |_|\\___/   \\___/ \\___/ \\__, |\\__,_|_|   \n");
     printf("                                          |___/            \n");
 
-    printf("\nUse as teclas A, W e D para cobrar o pênalti.\n");
+    printf("\nUse as teclas A, W, S e D para cobrar o pênalti.\n");
     printf("\nVocê terá 5 chances de fazer gol. Caso a sua pontuação seja superior à do goleiro, você vence.\n\n");
-    printf("  A ➡️ chuta para a esquerda\n  W ➡️ chuta para o meio\n  D ➡️ chuta para a direita\n\n");
+    printf("  A + S ➡️ chuta para a esquerda e baixo\n  S + S ➡️ chuta para o meio e baixo\n  D + S ➡️ chuta para a direita e baixo\n  A + W ➡️ chuta para a esquerda e alto\n  S + W ➡️ chuta para o meio e alto\n  D + W ➡️ chuta para a direita e alto\n\n");
     printf(" [1]   Iniciar o jogo\n [0]   Voltar à tela inicial\n");
 }
 
@@ -300,7 +300,12 @@ int main()
         if (keyhit()) {
             ch = readch();
 
-            if (ch == 49) {
+            if (ch == 48) {
+                screenDestroy();
+                pageWelcome();
+            }
+
+            else if (ch == 49) {
                 screenUpdate();
                 singlePlayer();
             }
@@ -311,12 +316,6 @@ int main()
             else if (ch == 51) {
                 screenDestroy();
                 pageManual();
-                if (keyhit()) {
-                    ch_m = readch();
-                    if (ch_m == 48) {
-                        pageWelcome();
-                    }
-                }
             }
             else if (ch == 51) {
                 screenDestroy();
