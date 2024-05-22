@@ -13,7 +13,7 @@
 #include "keyboard.h"
 #include "timer.h"
 
-int x = 75, y = 42; // Ponto zero da bola
+int x = 75, y = 45; // Ponto zero da bola
 int incX = 1, incY = 1;
 
 typedef struct {
@@ -103,10 +103,16 @@ void pageManual(){
     printf(" \\____\\___/|_| |_| |_|\\___/   \\___/ \\___/ \\__, |\\__,_|_|   \n");
     printf("                                          |___/            \n");
 
+    printf("\nModo Um Jogador (Cobrador de Penalti):\n");
     printf("\nUse as teclas A, W, S e D para cobrar o pênalti.\n");
-    printf("\nVocê terá 5 chances de fazer gol. Caso a sua pontuação seja superior à do goleiro, você vence.\n\n");
+    printf("Você terá 5 chances de fazer gol. Caso a sua pontuação seja superior à do goleiro, você vence.\n\n");
     printf("  A + S ➡️ chuta para a esquerda e baixo\n  S + S ➡️ chuta para o meio e baixo\n  D + S ➡️ chuta para a direita e baixo\n  A + W ➡️ chuta para a esquerda e alto\n  S + W ➡️ chuta para o meio e alto\n  D + W ➡️ chuta para a direita e alto\n\n");
-    printf(" [1]   Iniciar o jogo\n [0]   Voltar à tela inicial\n");
+    printf("\nModo Dois Jogadores (Cobrador de Penalti e Goleiro):\n");
+    printf("\nUse as teclas H, U, J e K para defender o pênalti.\n");
+    printf("Você terá 5 chances de para defender o penalti. Caso a sua pontuação seja superior à do cobrador, você vence.\n\n");
+    printf("\nOs comandos para o cobrador de penalti seguem a do Modo Um Jogador.\n");
+    printf("  H + J ➡️ pula para a esquerda e baixo\n  J + J ➡️ pula para o meio e baixo\n  K + J ➡️ pula para a direita e baixo\n  H + U ➡️ pula para a esquerda e alto\n  J + U ➡️ pula para o meio e alto\n  K + U ➡️ pula para a direita e alto\n\n");
+    printf(" [0]   Voltar à tela inicial\n [1]   Iniciar o jogo - Modo Um Jogador\n [2]   Iniciar o jogo - Modo Dois Jogadores\n");
 }
 
 void pageScores() {
@@ -378,7 +384,7 @@ int dualPlayer() {
             int alvo_x = 0, alvo_y = 0;
             
             if (lado_batedor == 212) { // A+S
-	            if (lado_goleiro != lado_batedor) {
+	            if (lado_goleiro != 210) { //H+J
 		            ins+=1;
 	            }
 	            else {
@@ -389,8 +395,8 @@ int dualPlayer() {
 	            alvo_y = esquerdaBaixo.y;
             }
 
-            else if (lado_batedor == 230) { // W+S
-	            if (lado_goleiro != lado_batedor){
+            else if (lado_batedor == 230) { // S+S
+	            if (lado_goleiro != 212){ //J+J
 		            ins+=1;
 	            }
 	            else {
@@ -402,7 +408,7 @@ int dualPlayer() {
             }
 
             else if (lado_batedor == 215) { // D+S
-	            if (lado_goleiro != lado_batedor){
+	            if (lado_goleiro != 213){ // J+K
 		            ins+=1;
 	            }
 	            else {
@@ -414,7 +420,7 @@ int dualPlayer() {
             }
 
             else if (lado_batedor == 216) { // A+W
-	            if (lado_goleiro != lado_batedor){
+	            if (lado_goleiro != 221){ //H+U
 		            ins+=1;
 	            }
 	            else {
@@ -425,8 +431,8 @@ int dualPlayer() {
 	            alvo_y = esquerdaAlto.y;
             }
 
-            else if (lado_batedor == 234) { // W+W
-	            if (lado_goleiro != lado_batedor){
+            else if (lado_batedor == 234) { // S+W
+	            if (lado_goleiro != 223){ //J+U
 		            ins+=1;
 	            }
 	            else {
@@ -438,7 +444,7 @@ int dualPlayer() {
             }
 
             else if (lado_batedor == 219) { // D+W
-	            if (lado_goleiro != lado_batedor){
+	            if (lado_goleiro != 224){ // K+U
 		            ins+=1;
 	            }
 	            else {
