@@ -13,6 +13,9 @@
 #include "keyboard.h"
 #include "timer.h"
 
+#define SPRITE_HEIGHT 9
+#define SPRITE_WIDTH 17
+
 int x = 75, y = 45; // Ponto zero da bola
 int incX = 1, incY = 1;
 
@@ -48,6 +51,39 @@ void printaCobrador()
     printf("`    \\,\n");  
 
 }
+
+void printGoalKeeper(){
+    printf("       🤓\n");
+    printf("   _ _/  \\_ _\n");
+    printf("  / _      _ \\\n");
+    printf(" / / |    | \\ \\\n");
+    printf("|||  |____|  |||\n");
+    printf("     |	  |\n");
+    printf("     |_ |_|\n");
+    printf("      || ||\n");
+    printf("     <_| |_>\n");
+}
+
+void printSprite(int x, int y, char sprite[SPRITE_HEIGHT][SPRITE_WIDTH + 1])
+{
+    for (int i = 0; i < SPRITE_HEIGHT; i++)
+    {
+        screenGotoxy(x, y + i);
+        printf("%s", sprite[i]);
+    }
+    screenUpdate();
+}
+
+char goleiro[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
+{' ',' ',' ',' ',' ',' ',' ','@'},
+{' ',' ',' ','_',' ','_','/',' ',' ','\\','\\','_',' ','_'},
+{' ',' ','/',' ','_',' ',' ',' ',' ',' ',' ','_'},
+{' ','/',' ','/',' ','|',' ',' ',' ',' ','|',' ','\\','\\',' ',' ',' '},
+{'|','|','|',' ',' ','|','_','_','_','_','|',' ',' ','|','|','|'},
+{' ',' ',' ',' ',' ','|',' ',' ',' ','|'},
+{' ',' ',' ',' ',' ','|','_',' ','|','_','|',},
+{' ',' ',' ',' ',' ',' ','|','|',' ','|','|',},
+{' ',' ',' ',' ',' ','<','_','|',' ','|','_','>'}};
 
 void printPlacar(int a, int b) {
 
@@ -128,17 +164,6 @@ void pageScores() {
 
 }
 
-void printGoalKeeper(){
-    printf("       @\n");
-    printf("   _ _/  \\_ _\n");
-    printf("  / _      _ \\\n");
-    printf(" / / |    | \\ \\\n");
-    printf("|||  |____|  |||\n");
-    printf("     |	  |\n");
-    printf("     |_ |_|\n");
-    printf("      || ||\n");
-    printf("     <_| |_>\n");
-}
 
 
 void pageScoreRegister() {
@@ -204,7 +229,8 @@ int singlePlayer()
     Coordenada direitaBaixo = {110, 20};
 
     screenInit(1); // Com parametro falso, a quadra nao starta
-    printGoalKeeper();
+    // printGoalKeeper();
+    printSprite(110, 12, goleiro);
     keyboardInit();
     timerInit(50);
     printaCobrador();
