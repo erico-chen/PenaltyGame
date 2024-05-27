@@ -18,5 +18,5 @@ $ ./penalty
 ```
 ## 👩‍💻 Membros 
 - Antonio Camelo - apc@cesar.school ✉
-- Erico Chen - apc@cesar.school ✉
-- Pablo Muniz - apc@cesar.school ✉
+- Erico Chen - ec2@cesar.school ✉
+- Pablo Muniz - pcm7@cesar.school ✉
