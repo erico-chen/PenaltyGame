@@ -235,21 +235,11 @@ int scoreRegister(int score) {
     int maxLength = 30;
 
     nome = (char *)malloc(maxLength * sizeof(char));
-    if (nome == NULL) {
-        fprintf(stderr, "Erro ao alocar memória\n");
-        return 1;
-    }
 
-    // Lê o nome do usuário
     printf("Digite seu nome: ");
     scanf("%s", nome);
 
     fptr = fopen("scores.txt", "a");
-    if (fptr == NULL) {
-        fprintf(stderr, "Erro ao abrir o arquivo\n");
-        free(nome);
-        return 1;
-    }
 
     fprintf(fptr, "%s %d\n", nome, score);
     fclose(fptr);
