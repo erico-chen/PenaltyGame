@@ -230,21 +230,33 @@ void pageScoreRegister() {
 }
 
 int scoreRegister(int score) {
-  // screenInit(0);
-  // keyboardInit();
-  
-  FILE *fptr;
-  char nome[10];
+    FILE *fptr;
+    char *nome;
+    int maxLength = 30;
 
-  fptr = fopen("scores.txt", "a");
-  
-  scanf("%s", nome);
+    nome = (char *)malloc(maxLength * sizeof(char));
+    if (nome == NULL) {
+        fprintf(stderr, "Erro ao alocar memória\n");
+        return 1;
+    }
 
-  fprintf(fptr, "%s" " %d\n", nome, score);
-  fclose(fptr);
+    // Lê o nome do usuário
+    printf("Digite seu nome: ");
+    scanf("%s", nome);
 
-  return 0;
-  
+    fptr = fopen("scores.txt", "a");
+    if (fptr == NULL) {
+        fprintf(stderr, "Erro ao abrir o arquivo\n");
+        free(nome);
+        return 1;
+    }
+
+    fprintf(fptr, "%s %d\n", nome, score);
+    fclose(fptr);
+
+    free(nome);
+
+    return 0;
 }
 
 int singlePlayer() 
