@@ -50,12 +50,12 @@
 
 #define MINX           1      // min screen horizontal pos
 #define MINY           1      // min screen vertical pos
-#define MAXX           150     // max screen horizontal pos
-#define MAXY           48     // max screen vertical pos
-#define BARRA_MIN_X    30
-#define BARRA_MAX_X    120
-#define BARRA_MAX_Y    23
-#define LINHA_DOIS_Y   42
+#define MAXX           134     // max screen horizontal pos
+#define MAXY           40     // max screen vertical pos
+#define BARRA_MIN_X    28
+#define BARRA_MAX_X    106
+#define BARRA_MAX_Y    15
+#define LINHA_DOIS_Y   30
 
 
 /**

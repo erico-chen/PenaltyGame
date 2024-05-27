@@ -14,9 +14,9 @@
 #include "timer.h"
 
 #define SPRITE_HEIGHT 9
-#define SPRITE_WIDTH 17
+#define SPRITE_WIDTH 21
 
-int x = 75, y = 45; // Ponto zero da bola
+int x = 65, y = 35; // Ponto zero da bola
 int incX = 1, incY = 1;
 
 typedef struct {
@@ -76,19 +76,53 @@ void printSprite(int x, int y, char sprite[SPRITE_HEIGHT][SPRITE_WIDTH + 1])
 
 char goleiro[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
 {' ',' ',' ',' ',' ',' ',' ','@'},
-{' ',' ',' ','_',' ','_','/',' ',' ','\\','\\','_',' ','_'},
-{' ',' ','/',' ','_',' ',' ',' ',' ',' ',' ','_'},
-{' ','/',' ','/',' ','|',' ',' ',' ',' ','|',' ','\\','\\',' ',' ',' '},
+{' ',' ',' ','_',' ','_','/',' ','\\','_',' ','_'},
+{' ',' ','/',' ','_',' ',' ',' ',' ',' ',' ','_', ' ', '\\'},
+{' ','/',' ','/',' ','|',' ',' ',' ',' ','|',' ','\\',' ','\\',' ',' '},
 {'|','|','|',' ',' ','|','_','_','_','_','|',' ',' ','|','|','|'},
-{' ',' ',' ',' ',' ','|',' ',' ',' ','|'},
+{' ',' ',' ',' ',' ','|',' ',' ',' ',' ','|'},
 {' ',' ',' ',' ',' ','|','_',' ','|','_','|',},
 {' ',' ',' ',' ',' ',' ','|','|',' ','|','|',},
 {' ',' ',' ',' ',' ','<','_','|',' ','|','_','>'}};
 
+char goleiroEsquerdoBaixo[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
+{' ','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_'},
+{'>','_','_','_','_',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ','|','-','-','-','-','>'},
+{' ',' ',' ','@','/',' ',' ',' ',' ',' ','|',' ',' ',' ','_','_','|'},
+{' ','_','_','_','\\',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ','|','-','-','-','-','>'},
+{'>','_','_','_','_','_','_','_','_','_','|','_','_','_','_','_','|'},
+};
+
+char goleiroEsquerdoAlto[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
+{' ',' ',' ',' ','V'},
+{' ',' ',' ',' ','\\',' ','\\','_','_','_','_','_','_','_','_','_'},
+{' ',' ',' ',' ','\\',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ','|','-','-','-','-','>'},
+{' ',' ',' ','@','/',' ',' ',' ',' ',' ','|',' ',' ',' ','_','_','|'},
+{' ','_','_','_','\\',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ','|','-','-','-','-','>'},
+{'>','_','_','_','_','_','_','_','_','_','|','_','_','_','_','_','|'},
+};
+
+char goleiroDireitoBaixo[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
+{' ',' ',' ',' ',' ',' ','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_'},
+{'<','-','-','-','-','|',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ','_','_','_','_','<'},
+{' ',' ',' ',' ',' ','|','_','_',' ',' ',' ','|',' ',' ',' ',' ',' ','\\','@'},
+{'<','-','-','-','-','|',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ','/','_','_','_',},
+{' ',' ',' ',' ',' ','|','_','_','_','_','_','|','_','_','_','_','_','_','_','_','_','<'},
+};
+
+char goleiroDireitoAlto[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
+{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','V'},
+{' ',' ',' ',' ',' ',' ','_','_','_','_','_','_','_','_','_','/',' ','/'},
+{'<','-','-','-','-','|',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ','/'},
+{' ',' ',' ',' ',' ','|','_','_',' ',' ',' ','|',' ',' ',' ',' ',' ','\\','@'},
+{'<','-','-','-','-','|',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ','/','_','_','_',},
+{' ',' ',' ',' ',' ','|','_','_','_','_','_','|','_','_','_','_','_','_','_','_','_','<'},
+};
+
 void printPlacar(int a, int b) {
 
     screenSetColor(YELLOW, DARKGRAY);
-    screenGotoxy(74, 48);
+    screenGotoxy(64, 37);
     printf("%d X %d", a, b);
 
 }
@@ -221,19 +255,19 @@ int singlePlayer()
     int ins = 0, outs = 0;
     int i = 0;
 
-    Coordenada esquerdaAlto = {40, 12};
-    Coordenada esquerdaBaixo = {40, 20};
-    Coordenada meioAlto = {75, 12};
-    Coordenada meioBaixo = {75, 20};
-    Coordenada direitaAlto = {110, 12};
-    Coordenada direitaBaixo = {110, 20};
+    Coordenada esquerdaAlto = {40, 7};
+    Coordenada esquerdaBaixo = {34, 13};
+    Coordenada meioAlto = {64, 3};
+    Coordenada meioBaixo = {64, 13};
+    Coordenada direitaAlto = {96, 7};
+    Coordenada direitaBaixo = {102, 13};
 
     screenInit(1); // Com parametro falso, a quadra nao starta
     // printGoalKeeper();
-    printSprite(110, 12, goleiro);
+    printSprite(59, 6, goleiro);
     keyboardInit();
     timerInit(50);
-    printaCobrador();
+    // printaCobrador();
     movimentaBola(x, y);
     screenUpdate();
 
@@ -256,6 +290,7 @@ int singlePlayer()
 		            ins+=1;
 	            }
 	            else {
+                    printSprite(35, 9, goleiroEsquerdoBaixo);
 		            outs+=1;
 	            }
 
@@ -280,6 +315,7 @@ int singlePlayer()
 		            ins+=1;
 	            }
 	            else {
+                    printSprite(82, 9, goleiroDireitoBaixo);
 		            outs+=1;
 	            }
 
@@ -292,6 +328,7 @@ int singlePlayer()
 		            ins+=1;
 	            }
 	            else {
+                    printSprite(36, 7, goleiroEsquerdoAlto);
 		            outs+=1;
 	            }
 
@@ -316,6 +353,7 @@ int singlePlayer()
 		            ins+=1;
 	            }
 	            else {
+                    printSprite(80,7,goleiroDireitoAlto);
 		            outs+=1;
 	            }
 
@@ -335,9 +373,9 @@ int singlePlayer()
             screenGotoxy(alvo_x,alvo_y);
             printf(" ");
             screenUpdate();
-            screenGotoxy(75,45);
+            screenGotoxy(65,35);
             printf("              ");
-            movimentaBola(75,45);
+            movimentaBola(65,35);
             screenUpdate();
             chances +=1;
 
@@ -515,7 +553,7 @@ int dualPlayer() {
 
         //     screenUpdate();
         // }
-        
+
     }
     keyboardDestroy();
     screenDestroy();
@@ -530,7 +568,7 @@ int dualPlayer() {
 
 int main() 
 {   
-    static int ch = 0, ch_m = 0, ins = 0;
+    static int ch = 0;
     pageWelcome();
     keyboardInit();
     
