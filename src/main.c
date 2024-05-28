@@ -74,19 +74,6 @@ void printSprite(int x, int y, char sprite[SPRITE_HEIGHT][SPRITE_WIDTH + 1])
     screenUpdate();
 }
 
-char matrizGeral[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
-  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-};
-
 char cleanGoleiro[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
 {' ',' ',' ',' ',' ',' ',' ',' '},
 {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
@@ -322,7 +309,7 @@ int scoreRegister(int score) {
 
     nome = (char *)malloc(maxLength * sizeof(char));
 
-    printf("Digite seu nome: ");
+    // printf("Digite seu nome: ");
     scanf("%s", nome);
 
     fptr = fopen("scores.txt", "a");
@@ -333,6 +320,47 @@ int scoreRegister(int score) {
     free(nome);
 
     return 0;
+}
+
+void movimentaGoleiroDualPlayer(int def) {
+  switch(def) {
+    case 0:
+      printSprite(59, 6, cleanGoleiro);
+      printSprite(35, 9, goleiroEsquerdaBaixo);
+      sleep(1);
+      printSprite(35, 9, cleanGoleiroEsquerdaBaixo);
+      break;
+    case 1:
+      printSprite(59, 6, cleanGoleiro);
+      printSprite(35, 9, goleiro);
+      sleep(1);
+      printSprite(35, 9, cleanGoleiro);
+      break;
+    case 2:
+      printSprite(59, 6, cleanGoleiro);
+      printSprite(82, 9, goleiroDireitaBaixo);
+      sleep(1);
+      printSprite(82, 9, cleanGoleiroDireitaBaixo);
+      break;
+    case 3:
+      printSprite(59, 6, cleanGoleiro);
+      printSprite(36, 7, goleiroEsquerdaAlto);
+      sleep(1);
+      printSprite(36, 7, cleanGoleiroEsquerdaAlto);	
+      break;
+    case 4:
+      printSprite(59, 6, cleanGoleiro);
+      printSprite(59, 5, goleiroMeioAlto);
+      sleep(1);
+      printSprite(59, 5, cleanGoleiroMeioAlto);
+      break;
+    case 5:
+      printSprite(59, 6, cleanGoleiro);
+      printSprite(80,7,goleiroDireitaAlto);
+      sleep(1);
+      printSprite(80, 7, cleanGoleiroDireitaAlto);
+      break;
+  }
 }
 
 int singlePlayer() 
@@ -378,19 +406,15 @@ int singlePlayer()
 		            ins+=1;
 	            }
 	            else {
-                    printSprite(59, 6, cleanGoleiro);
-                    printSprite(35, 9, goleiroEsquerdaBaixo);
-                    sleep(1);
-                    printSprite(35, 9, cleanGoleiroEsquerdaBaixo);
 		            outs+=1;
 	            }
-              // printSprite(59, 6, goleiro);
 	            alvo_x = esquerdaBaixo.x;
 	            alvo_y = esquerdaBaixo.y;
+              movimentaGoleiroDualPlayer(def);
               
             }
 
-            else if (lado_batedor == 230) { // W+S
+            else if (lado_batedor == 230) { // S+S 
 	            if (def != 1) {
 		            ins+=1;
 	            }
@@ -400,6 +424,8 @@ int singlePlayer()
 
 	            alvo_x = meioBaixo.x;
 	            alvo_y = meioBaixo.y;
+              movimentaGoleiroDualPlayer(def);
+
             }
 
             else if (lado_batedor == 215) { // D+S
@@ -407,16 +433,12 @@ int singlePlayer()
 		            ins+=1;
 	            }
 	            else {
-                    printSprite(59, 6, cleanGoleiro);
-                    printSprite(82, 9, goleiroDireitaBaixo);
-                    sleep(1);
-                    printSprite(82, 9, cleanGoleiroDireitaBaixo);
-
 		            outs+=1;
 	            }
               // printSprite(59, 6, goleiro);
 	            alvo_x = direitaBaixo.x;
 	            alvo_y = direitaBaixo.y;
+              movimentaGoleiroDualPlayer(def);
             }
 
             else if (lado_batedor == 216) { // A+W
@@ -424,31 +446,25 @@ int singlePlayer()
 		            ins+=1;
 	            }
 	            else {
-                    printSprite(59, 6, cleanGoleiro);
-                    printSprite(36, 7, goleiroEsquerdaAlto);
-                    sleep(1);
-                    printSprite(36, 7, cleanGoleiroEsquerdaAlto);
 		            outs+=1;
 	            }
               // printSprite(59, 6, goleiro);
 	            alvo_x = esquerdaAlto.x;
 	            alvo_y = esquerdaAlto.y;
+              movimentaGoleiroDualPlayer(def);
             }
 
-            else if (lado_batedor == 234) { // W+W
+            else if (lado_batedor == 234) { // W+S
 	            if (def != 4) {
 		            ins+=1;
 	            }
 	            else {
-                    printSprite(59, 6, cleanGoleiro);
-                    printSprite(59, 5, goleiroMeioAlto);
-                    sleep(1);
-                    printSprite(59, 5, cleanGoleiroMeioAlto);
 		            outs+=1;
 	            }
               // printSprite(59, 6, goleiro);
 	            alvo_x = meioAlto.x;
 	            alvo_y = meioAlto.y;
+              movimentaGoleiroDualPlayer(def);
             }
 
             else if (lado_batedor == 219) { // D+W
@@ -456,15 +472,12 @@ int singlePlayer()
 		            ins+=1;
 	            }
 	            else {
-                    printSprite(59, 6, cleanGoleiro);
-                    printSprite(80,7,goleiroDireitaAlto);
-                    sleep(1);
-                    printSprite(80, 7, cleanGoleiroDireitaAlto);
 		            outs+=1;
 	            }
               // printSprite(59, 6, goleiro);
 	            alvo_x = direitaAlto.x;
 	            alvo_y = direitaAlto.y;
+              movimentaGoleiroDualPlayer(def);
             }
 
             else{ //chutou pra fora
