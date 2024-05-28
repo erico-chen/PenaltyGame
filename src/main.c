@@ -38,19 +38,6 @@ void printaBola()
     printf("⚽");
 }
 
-void printGoalKeeper()
-{
-    printf("       🤓\n");
-    printf("   _ _/  \\_ _\n");
-    printf("  / _      _ \\\n");
-    printf(" / / |    | \\ \\\n");
-    printf("|||  |____|  |||\n");
-    printf("     |	  |\n");
-    printf("     |_ |_|\n");
-    printf("      || ||\n");
-    printf("     <_| |_>\n");
-}
-
 void printSprite(int x, int y, char sprite[SPRITE_HEIGHT][SPRITE_WIDTH + 1])
 {
     for (int i = 0; i < SPRITE_HEIGHT; i++)
@@ -254,24 +241,57 @@ void pageManual()
 void pageScores()
 {
     
-    screenInit(0);
+  screenInit(0);
 
-    printf(" ____                          \n");
-    printf("/ ___|  ___ ___  _ __ ___  ___ \n");
-    printf("\\___ \\ / __/ _ \\| '__/ _ \\/ __|\n");
-    printf(" ___) | (_| (_) | | |  __/\\__ \\\n");
-    printf("|____/ \\___\\___/|_|  \\___||___/\n");
+  printf(" ____                          \n");
+  printf("/ ___|  ___ ___  _ __ ___  ___ \n");
+  printf("\\___ \\ / __/ _ \\| '__/ _ \\/ __|\n");
+  printf(" ___) | (_| (_) | | |  __/\\__ \\\n");
+  printf("|____/ \\___\\___/|_|  \\___||___/\n");
+  printf("\n");
 
+  printf(" [0]   Voltar à tela inicial\n\n");
 
+  readScores();
 }
 
+void readScores() {
+  FILE *fptr;
+  char nome[100];
+  int numero;
+  fptr = fopen("scores.txt", "r");
 
+  if (fptr == NULL) {
+      perror("Erro ao abrir o arquivo");
+      return 1;
+  }
 
-void pageScoreRegister()
+  printf("");
+  while (fscanf(fptr, "%s %d", nome, &numero) == 2) {
+      printf("Jogador: %s, Gols: %d\n", nome, numero);
+  }
+
+  fclose(fptr);
+}
+
+void pageScoreRegister(int direct)
 {
   screenInit(0);
   keyboardInit();
 
+  if (direct == 0) { 
+    pageWon();
+  } else if (direct == 1) {
+    pageLost();
+  }
+
+  printf("\nDigita teu nome, jogador!");
+  scanf("");
+
+}
+
+void pageWon()
+{
   printf("__     _____   ____  //\\   __     _______ _   _  ____ _____ _   _ _\n");
   printf("\\ \\   / / _ \\ / ___||/_%c|  \\ \\   / / ____| \\ | |/ ___| ____| | | | |\n", '\\');
   printf(" \\ \\ / / | | | |   | ____|  \\ \\ / /|  _| |  \\| | |   |  _| | | | | |\n");
@@ -290,11 +310,16 @@ void pageScoreRegister()
   printf("                                 _.' '._\n");
   printf("                                `\"\"\"\"\"\"\"`\n");
   printf("---------------------------------------------------------------------\n");
+}
 
-  // screenGotoxy(x, y);
-  printf("\nDigita teu nome, jogador!");
-  scanf("");
-
+void pageLost()
+{
+  // screenInit(0);
+  printf(" __     _____   ____  //\\    ____  _____ ____  ____  _____ _   _ _ \n");
+  printf(" \\ \\   / / _ \\ / ___||/_\\|  |  _ \\| ____|  _ \\|  _ \\| ____| | | | |\n");
+  printf("  \\ \\ / / | | | |   | ____| | |_) |  _| | |_) | | | |  _| | | | | |\n");
+  printf("   \\ V /| |_| | |___|  _|_  |  __/| |___|  _ <| |_| | |___| |_| |_|\n");
+  printf("    \\_/  \\___/ \\____|_____| |_|   |_____|_| \\_\\____/|_____|\\___/(_)\n");
 }
 
 int scoreRegister(int score)
@@ -375,6 +400,7 @@ int singlePlayer()
     static int ch_batedor = 0, lado_batedor = 0;
     int ins = 0, outs = 0;
     int i = 0;
+    int direct;
 
     Coordenada esquerdaAlto = {40, 7};
     Coordenada esquerdaBaixo = {34, 13};
@@ -505,10 +531,20 @@ int singlePlayer()
     timerDestroy();
 
     screenDestroy();
-    pageScoreRegister();
+    
+    if (ins > outs) {
+      direct = 0;
+
+    } else if (ins < outs) {
+      direct = 1;
+
+    }
+
+    pageScoreRegister(direct);
     scoreRegister(ins);
 
     return ins;
+
 }
 
 int dualPlayer() {
@@ -649,27 +685,13 @@ int dualPlayer() {
             
         }
 
-        // Update game state (move elements, verify collision, etc)
-        
-        // if (timerTimeOver() == 1)
-        // {
-        //     int newX = x + incX;
-        //     if (newX >= direitaBaixo.x - 1 || newX <= MINX + 1) incX = -incX;
-        //     int newY = y - incY;
-        //     if (newY >= MAXY - 1 || newY <= direitaBaixo.y + 1) incY = -incY;
-
-        //     movimentaBola(newX, newY);
-
-        //     screenUpdate();
-        // }
-
     }
     keyboardDestroy();
     screenDestroy();
     timerDestroy();
 
     screenDestroy();
-    pageScoreRegister();
+    pageScoreRegister(ins); // TIRAR ESSE PARAMETRO AQUI!!!!
     scoreRegister(ins);
 
     return ins;
@@ -703,7 +725,7 @@ int main()
                 screenDestroy();
                 pageManual();
             }
-            else if (ch == 51) {// TODO : ler arquivo
+            else if (ch == 52) {// TODO : ler arquivo
                 screenDestroy();
                 pageScores();
             }
