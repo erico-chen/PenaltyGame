@@ -323,7 +323,6 @@ void movimentaGoleiroDualPlayer(int def, int alvo_x, int alvo_y)
     case 0:
       printSprite(59, 6, cleanGoleiro);
       movimentaBola(alvo_x,alvo_y);
-      // printSprite(alvo_x, alvo_y, cleanBola);
       printSprite(35, 9, goleiroEsquerdaBaixo);
       sleep(1);
       printSprite(35, 9, cleanGoleiroEsquerdaBaixo);
@@ -331,9 +330,9 @@ void movimentaGoleiroDualPlayer(int def, int alvo_x, int alvo_y)
     case 1:
       printSprite(59, 6, cleanGoleiro);
       movimentaBola(alvo_x,alvo_y);
-      printSprite(35, 9, goleiro);
+      printSprite(59, 6, goleiro);
       sleep(1);
-      printSprite(35, 9, cleanGoleiro);
+      printSprite(59, 6, cleanGoleiro);
       break;
     case 2:
       printSprite(59, 6, cleanGoleiro);
