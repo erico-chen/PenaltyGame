@@ -14,6 +14,10 @@
 int x = 65, y = 35; // Ponto zero da bola
 int incX = 1, incY = 1;
 
+void readScores();
+void pageLost();
+void pageWon();
+
 typedef struct {
     int x;
     int y;
@@ -129,11 +133,11 @@ char goleiroMeioAlto[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
 {'|',' ','\\','/',' ','\\','/',' ','|'},
 {'|',' ',' ',' ',' ',' ',' ',' ','|'},
 {'|',' ',' ',' ',' ',' ',' ',' ','|'},
-{'|',' ',' ',' ',' ',' ',' ','_','|'},
+{'|','_','_','_','_','_','_','_','|'},
 {'|',' ',' ',' ',' ',' ',' ',' ','|'},
-{'|',' ',' ',' ','|',' ',' ',' ','|',},
+{'|','_','_','_','|','_','_','_','|',},
 {' ',' ','|','|',' ','|','|',},
-{' ','<',' ','|',' ','|',' ','>'}
+{' ','<','_','|',' ','|','_','>'}
 };
 
 char goleiroEsquerdaBaixo[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
@@ -174,7 +178,7 @@ void printPlacar(int a, int b)
 {
 
     screenSetColor(YELLOW, DARKGRAY);
-    screenGotoxy(64, 37);
+    screenGotoxy(56, 37);
     printf("Batedor %d X %d Goleiro", a, b);
 
 }
@@ -263,7 +267,7 @@ void readScores() {
 
   if (fptr == NULL) {
       perror("Erro ao abrir o arquivo");
-      return 1;
+      exit(1);
   }
 
   printf("");
@@ -414,6 +418,7 @@ int singlePlayer()
     keyboardInit();
     timerInit(50);
     movimentaBola(x, y);
+    printPlacar(ins,outs);
     screenUpdate();
 
     while (ch_batedor != 10 && chances<5)
@@ -566,6 +571,7 @@ int dualPlayer() {
     keyboardInit();
     timerInit(50);
     movimentaBola(x, y);
+    printPlacar(ins,outs);
     screenUpdate();
 
     while (ch_batedor != 10 && chances<5)
