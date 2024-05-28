@@ -13,7 +13,7 @@
 #include "keyboard.h"
 #include "timer.h"
 
-#define SPRITE_HEIGHT 9
+#define SPRITE_HEIGHT 10
 #define SPRITE_WIDTH 21
 
 int x = 65, y = 35; // Ponto zero da bola
@@ -84,6 +84,18 @@ char goleiro[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
 {' ',' ',' ',' ',' ','|','_',' ','|','_','|',},
 {' ',' ',' ',' ',' ',' ','|','|',' ','|','|',},
 {' ',' ',' ',' ',' ','<','_','|',' ','|','_','>'}};
+
+char goleiroMeioAlto[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
+{' ',' ','E',' ',' ',' ',' ','>'},
+{'/',' ','/',' ','@',' ','|',' ','\\'},
+{'|',' ','\\','/',' ','\\','/',' ','|'},
+{'|',' ',' ',' ',' ',' ',' ',' ','|'},
+{'|',' ',' ',' ',' ',' ',' ',' ','|'},
+{'|',' ',' ',' ',' ',' ',' ','_','|'},
+{'|',' ',' ',' ',' ',' ',' ',' ','|'},
+{'|',' ',' ',' ','|',' ',' ',' ','|',},
+{' ',' ','|','|',' ','|','|',},
+{' ','<',' ','|',' ','|',' ','>'}};
 
 char goleiroEsquerdoBaixo[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
 {' ','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_'},
@@ -259,7 +271,7 @@ int singlePlayer()
 
     Coordenada esquerdaAlto = {40, 7};
     Coordenada esquerdaBaixo = {34, 13};
-    Coordenada meioAlto = {64, 3};
+    Coordenada meioAlto = {65, 5};
     Coordenada meioBaixo = {64, 13};
     Coordenada direitaAlto = {96, 7};
     Coordenada direitaBaixo = {102, 13};
@@ -343,6 +355,7 @@ int singlePlayer()
 		            ins+=1;
 	            }
 	            else {
+                    printSprite(59, 5, goleiroMeioAlto);
 		            outs+=1;
 	            }
 
