@@ -319,49 +319,52 @@ int scoreRegister(int score)
 
 void movimentaGoleiroDualPlayer(int def, int alvo_x, int alvo_y)
 {
-  switch(def) {
-    case 0:
-      printSprite(59, 6, cleanGoleiro);
-      movimentaBola(alvo_x,alvo_y);
-      printSprite(35, 9, goleiroEsquerdaBaixo);
-      sleep(1);
-      printSprite(35, 9, cleanGoleiroEsquerdaBaixo);
-      break;
-    case 1:
-      printSprite(59, 6, cleanGoleiro);
-      movimentaBola(alvo_x,alvo_y);
-      printSprite(59, 6, goleiro);
-      sleep(1);
-      printSprite(59, 6, cleanGoleiro);
-      break;
-    case 2:
-      printSprite(59, 6, cleanGoleiro);
-      movimentaBola(alvo_x,alvo_y);
-      printSprite(82, 9, goleiroDireitaBaixo);
-      sleep(1);
-      printSprite(82, 9, cleanGoleiroDireitaBaixo);
-      break;
-    case 3:
-      printSprite(59, 6, cleanGoleiro);
-      movimentaBola(alvo_x,alvo_y);
-      printSprite(36, 7, goleiroEsquerdaAlto);
-      sleep(1);
-      printSprite(36, 7, cleanGoleiroEsquerdaAlto);	
-      break;
-    case 4:
-      printSprite(59, 6, cleanGoleiro);
-      movimentaBola(alvo_x,alvo_y);
-      printSprite(59, 5, goleiroMeioAlto);
-      sleep(1);
-      printSprite(59, 5, cleanGoleiroMeioAlto);
-      break;
-    case 5:
-      printSprite(59, 6, cleanGoleiro);
-      movimentaBola(alvo_x,alvo_y);
-      printSprite(80,7,goleiroDireitaAlto);
-      sleep(1);
-      printSprite(80, 7, cleanGoleiroDireitaAlto);
-      break;
+  if (def == 0 || def == 210){
+    printSprite(59, 6, cleanGoleiro);
+    movimentaBola(alvo_x,alvo_y);
+    printSprite(35, 9, goleiroEsquerdaBaixo);
+    sleep(1);
+    printSprite(35, 9, cleanGoleiroEsquerdaBaixo);
+  }
+  
+  else if (def == 1 || def == 212){
+    printSprite(59, 6, cleanGoleiro);
+    movimentaBola(alvo_x,alvo_y);
+    printSprite(59, 6, goleiro);
+    sleep(1);
+    printSprite(59, 6, cleanGoleiro);
+  }
+
+  else if (def == 2 || def == 213){
+    printSprite(59, 6, cleanGoleiro);
+    movimentaBola(alvo_x,alvo_y);
+    printSprite(82, 9, goleiroDireitaBaixo);
+    sleep(1);
+    printSprite(82, 9, cleanGoleiroDireitaBaixo);
+  }
+
+  else if (def == 3 || def == 221){
+    printSprite(59, 6, cleanGoleiro);
+    movimentaBola(alvo_x,alvo_y);
+    printSprite(36, 7, goleiroEsquerdaAlto);
+    sleep(1);
+    printSprite(36, 7, cleanGoleiroEsquerdaAlto);
+  }
+  
+  else if (def == 4 || def == 223){
+    printSprite(59, 6, cleanGoleiro);
+    movimentaBola(alvo_x,alvo_y);
+    printSprite(59, 5, goleiroMeioAlto);
+    sleep(1);
+    printSprite(59, 5, cleanGoleiroMeioAlto);
+  }
+
+  else if (def == 5 || def == 224){
+    printSprite(59, 6, cleanGoleiro);
+    movimentaBola(alvo_x,alvo_y);
+    printSprite(80,7,goleiroDireitaAlto);
+    sleep(1);
+    printSprite(80, 7, cleanGoleiroDireitaAlto);
   }
 }
 
@@ -381,11 +384,9 @@ int singlePlayer()
     Coordenada direitaBaixo = {102, 13};
 
     screenInit(1); // Com parametro falso, a quadra nao starta
-    // printGoalKeeper();
     printSprite(59, 6, goleiro);
     keyboardInit();
     timerInit(50);
-    // printaCobrador();
     movimentaBola(x, y);
     screenUpdate();
 
@@ -483,7 +484,7 @@ int singlePlayer()
             }
             printSprite(59, 6, goleiro);
             printPlacar(ins,outs);
-	        screenUpdate();
+	          screenUpdate();
 
             // sleep(1);
             screenGotoxy(alvo_x,alvo_y);
@@ -525,10 +526,9 @@ int dualPlayer() {
     Coordenada direitaBaixo = {102, 13};
 
     screenInit(1); // Com parametro falso, a quadra nao starta
-    printGoalKeeper();
+    printSprite(59, 6, goleiro);
     keyboardInit();
     timerInit(50);
-    // printaCobrador();
     movimentaBola(x, y);
     screenUpdate();
 
@@ -559,6 +559,7 @@ int dualPlayer() {
 
 	            alvo_x = esquerdaBaixo.x;
 	            alvo_y = esquerdaBaixo.y;
+              movimentaGoleiroDualPlayer(lado_goleiro, alvo_x, alvo_y);
             }
 
             else if (lado_batedor == 230) { // S+S
@@ -571,6 +572,7 @@ int dualPlayer() {
 
 	            alvo_x = meioBaixo.x;
 	            alvo_y = meioBaixo.y;
+              movimentaGoleiroDualPlayer(lado_goleiro, alvo_x, alvo_y);
             }
 
             else if (lado_batedor == 215) { // D+S
@@ -583,6 +585,7 @@ int dualPlayer() {
 
 	            alvo_x = direitaBaixo.x;
 	            alvo_y = direitaBaixo.y;
+              movimentaGoleiroDualPlayer(lado_goleiro, alvo_x, alvo_y);
             }
 
             else if (lado_batedor == 216) { // A+W
@@ -595,6 +598,7 @@ int dualPlayer() {
 
 	            alvo_x = esquerdaAlto.x;
 	            alvo_y = esquerdaAlto.y;
+              movimentaGoleiroDualPlayer(lado_goleiro, alvo_x, alvo_y);
             }
 
             else if (lado_batedor == 234) { // S+W
@@ -607,6 +611,7 @@ int dualPlayer() {
 
 	            alvo_x = meioAlto.x;
 	            alvo_y = meioAlto.y;
+              movimentaGoleiroDualPlayer(lado_goleiro, alvo_x, alvo_y);
             }
 
             else if (lado_batedor == 219) { // D+W
@@ -619,17 +624,19 @@ int dualPlayer() {
 
 	            alvo_x = direitaAlto.x;
 	            alvo_y = direitaAlto.y;
+              movimentaGoleiroDualPlayer(lado_goleiro, alvo_x, alvo_y);
             }
 
             else{ //chutou pra fora
                 outs+=1;
             }
 
-            movimentaBola(alvo_x,alvo_y);
+            // movimentaBola(alvo_x,alvo_y);
+            printSprite(59, 6, goleiro);
             printPlacar(ins,outs);
-	        screenUpdate();
+	          screenUpdate();
 
-            sleep(1);
+            // sleep(1);
             screenGotoxy(alvo_x,alvo_y);
             printf(" ");
             screenUpdate();
@@ -638,7 +645,7 @@ int dualPlayer() {
             movimentaBola(75,45);
             screenUpdate();
             chances +=1;
-
+             
             
         }
 
