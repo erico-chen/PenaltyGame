@@ -74,6 +74,78 @@ void printSprite(int x, int y, char sprite[SPRITE_HEIGHT][SPRITE_WIDTH + 1])
     screenUpdate();
 }
 
+char matrizGeral[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+};
+
+char cleanGoleiro[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
+{' ',' ',' ',' ',' ',' ',' ',' '},
+{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ', ' ', ' '},
+{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',},
+{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',},
+{' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '}
+};
+
+char cleanGoleiroMeioAlto[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
+  {' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',},
+  {' ',' ',' ',' ',' ',' ',' ',},
+  {' ',' ',' ',' ',' ',' ',' ',' '}
+};
+
+char cleanGoleiroEsquerdaBaixo[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+};
+
+char cleanGoleiroEsquerdaAlto[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
+  {' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+};
+
+char cleanGoleiroDireitaBaixo[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+};
+
+char cleanGoleiroDireitaAlto[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',},
+  {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
+};
+
 char goleiro[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
 {' ',' ',' ',' ',' ',' ',' ','@'},
 {' ',' ',' ','_',' ','_','/',' ','\\','_',' ','_'},
@@ -83,7 +155,8 @@ char goleiro[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
 {' ',' ',' ',' ',' ','|',' ',' ',' ',' ','|'},
 {' ',' ',' ',' ',' ','|','_',' ','|','_','|',},
 {' ',' ',' ',' ',' ',' ','|','|',' ','|','|',},
-{' ',' ',' ',' ',' ','<','_','|',' ','|','_','>'}};
+{' ',' ',' ',' ',' ','<','_','|',' ','|','_','>'}
+};
 
 char goleiroMeioAlto[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
 {' ',' ','E',' ',' ',' ',' ','>'},
@@ -95,9 +168,10 @@ char goleiroMeioAlto[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
 {'|',' ',' ',' ',' ',' ',' ',' ','|'},
 {'|',' ',' ',' ','|',' ',' ',' ','|',},
 {' ',' ','|','|',' ','|','|',},
-{' ','<',' ','|',' ','|',' ','>'}};
+{' ','<',' ','|',' ','|',' ','>'}
+};
 
-char goleiroEsquerdoBaixo[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
+char goleiroEsquerdaBaixo[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
 {' ','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_'},
 {'>','_','_','_','_',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ','|','-','-','-','-','>'},
 {' ',' ',' ','@','/',' ',' ',' ',' ',' ','|',' ',' ',' ','_','_','|'},
@@ -105,7 +179,7 @@ char goleiroEsquerdoBaixo[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
 {'>','_','_','_','_','_','_','_','_','_','|','_','_','_','_','_','|'},
 };
 
-char goleiroEsquerdoAlto[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
+char goleiroEsquerdaAlto[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
 {' ',' ',' ',' ','V'},
 {' ',' ',' ',' ','\\',' ','\\','_','_','_','_','_','_','_','_','_'},
 {' ',' ',' ',' ','\\',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ','|','-','-','-','-','>'},
@@ -114,7 +188,7 @@ char goleiroEsquerdoAlto[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
 {'>','_','_','_','_','_','_','_','_','_','|','_','_','_','_','_','|'},
 };
 
-char goleiroDireitoBaixo[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
+char goleiroDireitaBaixo[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
 {' ',' ',' ',' ',' ',' ','_','_','_','_','_','_','_','_','_','_','_','_','_','_','_'},
 {'<','-','-','-','-','|',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ','_','_','_','_','<'},
 {' ',' ',' ',' ',' ','|','_','_',' ',' ',' ','|',' ',' ',' ',' ',' ','\\','@'},
@@ -122,7 +196,7 @@ char goleiroDireitoBaixo[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
 {' ',' ',' ',' ',' ','|','_','_','_','_','_','|','_','_','_','_','_','_','_','_','_','<'},
 };
 
-char goleiroDireitoAlto[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
+char goleiroDireitaAlto[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
 {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','V'},
 {' ',' ',' ',' ',' ',' ','_','_','_','_','_','_','_','_','_','/',' ','/'},
 {'<','-','-','-','-','|',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ','/'},
@@ -135,7 +209,7 @@ void printPlacar(int a, int b) {
 
     screenSetColor(YELLOW, DARKGRAY);
     screenGotoxy(64, 37);
-    printf("%d X %d", a, b);
+    printf("Batedor %d X %d Goleiro", a, b);
 
 }
 
@@ -304,12 +378,16 @@ int singlePlayer()
 		            ins+=1;
 	            }
 	            else {
-                    printSprite(35, 9, goleiroEsquerdoBaixo);
+                    printSprite(59, 6, cleanGoleiro);
+                    printSprite(35, 9, goleiroEsquerdaBaixo);
+                    sleep(1);
+                    printSprite(35, 9, cleanGoleiroEsquerdaBaixo);
 		            outs+=1;
 	            }
-
+              // printSprite(59, 6, goleiro);
 	            alvo_x = esquerdaBaixo.x;
 	            alvo_y = esquerdaBaixo.y;
+              
             }
 
             else if (lado_batedor == 230) { // W+S
@@ -329,10 +407,14 @@ int singlePlayer()
 		            ins+=1;
 	            }
 	            else {
-                    printSprite(82, 9, goleiroDireitoBaixo);
+                    printSprite(59, 6, cleanGoleiro);
+                    printSprite(82, 9, goleiroDireitaBaixo);
+                    sleep(1);
+                    printSprite(82, 9, cleanGoleiroDireitaBaixo);
+
 		            outs+=1;
 	            }
-
+              // printSprite(59, 6, goleiro);
 	            alvo_x = direitaBaixo.x;
 	            alvo_y = direitaBaixo.y;
             }
@@ -342,10 +424,13 @@ int singlePlayer()
 		            ins+=1;
 	            }
 	            else {
-                    printSprite(36, 7, goleiroEsquerdoAlto);
+                    printSprite(59, 6, cleanGoleiro);
+                    printSprite(36, 7, goleiroEsquerdaAlto);
+                    sleep(1);
+                    printSprite(36, 7, cleanGoleiroEsquerdaAlto);
 		            outs+=1;
 	            }
-
+              // printSprite(59, 6, goleiro);
 	            alvo_x = esquerdaAlto.x;
 	            alvo_y = esquerdaAlto.y;
             }
@@ -355,10 +440,13 @@ int singlePlayer()
 		            ins+=1;
 	            }
 	            else {
+                    printSprite(59, 6, cleanGoleiro);
                     printSprite(59, 5, goleiroMeioAlto);
+                    sleep(1);
+                    printSprite(59, 5, cleanGoleiroMeioAlto);
 		            outs+=1;
 	            }
-
+              // printSprite(59, 6, goleiro);
 	            alvo_x = meioAlto.x;
 	            alvo_y = meioAlto.y;
             }
@@ -368,10 +456,13 @@ int singlePlayer()
 		            ins+=1;
 	            }
 	            else {
-                    printSprite(80,7,goleiroDireitoAlto);
+                    printSprite(59, 6, cleanGoleiro);
+                    printSprite(80,7,goleiroDireitaAlto);
+                    sleep(1);
+                    printSprite(80, 7, cleanGoleiroDireitaAlto);
 		            outs+=1;
 	            }
-
+              // printSprite(59, 6, goleiro);
 	            alvo_x = direitaAlto.x;
 	            alvo_y = direitaAlto.y;
             }
@@ -379,7 +470,7 @@ int singlePlayer()
             else{ //chutou pra fora
                 outs+=1;
             }
-
+            printSprite(59, 6, goleiro);
             movimentaBola(alvo_x,alvo_y);
             printPlacar(ins,outs);
 	        screenUpdate();
