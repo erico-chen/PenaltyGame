@@ -9,7 +9,7 @@
 #include "timer.h"
 
 #define SPRITE_HEIGHT 10
-#define SPRITE_WIDTH 21
+#define SPRITE_WIDTH 22
 
 int x = 65, y = 35; // Ponto zero da bola
 int incX = 1, incY = 1;
@@ -518,12 +518,12 @@ int dualPlayer() {
     int ins = 0, outs = 0;
     int i = 0;
 
-    Coordenada esquerdaAlto = {40, 12};
-    Coordenada esquerdaBaixo = {40, 20};
-    Coordenada meioAlto = {75, 12};
-    Coordenada meioBaixo = {75, 20};
-    Coordenada direitaAlto = {110, 12};
-    Coordenada direitaBaixo = {110, 20};
+    Coordenada esquerdaAlto = {40, 7};
+    Coordenada esquerdaBaixo = {34, 13};
+    Coordenada meioAlto = {65, 5};
+    Coordenada meioBaixo = {64, 13};
+    Coordenada direitaAlto = {96, 7};
+    Coordenada direitaBaixo = {102, 13};
 
     screenInit(1); // Com parametro falso, a quadra nao starta
     printGoalKeeper();
