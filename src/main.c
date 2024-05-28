@@ -251,11 +251,18 @@ void pageScores()
   printf("\n");
 
   printf(" [0]   Voltar à tela inicial\n\n");
+  printf("________________________________\n");
+  printf("________RANK SINGLEPLAYER_______\n\n");
+  readScoresSingle();
+  printf("________________________________\n");
+  printf("________RANK DUALPLAYER_________\n\n");
+  readScoresDual();
 
-  readScores();
+  
 }
 
-void readScores() {
+void readScoresSingle()
+{
   FILE *fptr;
   char nome[100];
   int numero;
@@ -274,7 +281,27 @@ void readScores() {
   fclose(fptr);
 }
 
-void pageScoreRegister(int direct)
+void readScoresDual()
+{
+    FILE *fptr;
+    int gols, defs;
+    char player[100], goalkeeper[100];
+
+    fptr = fopen("scoreDual.txt", "r");
+
+    if (fptr == NULL) {
+        perror("Erro ao abrir o arquivo");
+        return 1;
+    }
+
+    while (fscanf(fptr, "[%d] %s vs %s [%d]\n", &gols, player, goalkeeper, &defs) == 4) {
+        printf(" [%d] %s vs %s [%d]\n", gols, player, goalkeeper, defs);
+    }
+
+    fclose(fptr);
+}
+
+void pageScoreRegisterSingle(int direct)
 {
   screenInit(0);
   keyboardInit();
@@ -286,6 +313,24 @@ void pageScoreRegister(int direct)
   }
 
   printf("\nDigita teu nome, jogador!");
+  scanf("");
+
+}
+
+void pageScoreRegisterDual(int direct)
+{
+  screenInit(0);
+  keyboardInit();
+
+  if (direct == 0) {
+    pagePlayerWon();
+  } else if (direct == 1) {
+    pageGoalkeeperWon();
+  }
+
+  printf("\nDigita teu nome, jogador!");
+  scanf("");
+  printf("\nDigita teu nome, goleiro!");
   scanf("");
 
 }
@@ -322,24 +367,100 @@ void pageLost()
   printf("    \\_/  \\___/ \\____|_____| |_|   |_____|_| \\_\\____/|_____|\\___/(_)\n");
 }
 
-int scoreRegister(int score)
+void pagePlayerWon()
 {
-    FILE *fptr;
-    char *nome;
-    int maxLength = 30;
+  printf("     _  ___   ____    _    ____   ___  ____  \n");
+  printf("    | |/ _ \\ / ___|  / \\  |  _ \\ / _ \\|  _ \\ \n");
+  printf(" _  | | | | | |  _  / _ \\ | | | | | | | |_) |\n");
+  printf("| |_| | |_| | |_| |/ ___ \\| |_| | |_| |  _ < \n");
+  printf("\\____/ \\___/ \\____/_/    \\_\\____/ \\___/|_| \\_\\\n");
+  printf("\\ \\   / / ____| \\ | |/ ___| ____| | | | |    \n");
+  printf(" \\ \\ / /|  _| |  \\| | |   |  _| | | | | |    \n");
+  printf("  \\ V / | |___| |\\  | |___| |___| |_| |_|    \n");
+  printf("   \\_/  |_____|_| \\_|\\____|_____|\\___/(_)    \n");
 
-    nome = (char *)malloc(maxLength * sizeof(char));
+  printf("----------------------------------------------\n");
+  printf("                 ___________\n");
+  printf("                '._==_==_=_.\n");
+  printf("                .-\\:      /-.\n");
+  printf("               | (|:.     |) |\n");
+  printf("                '-|:.     |-\n");
+  printf("                  \\::.    /\n");
+  printf("                   '::. .'\n");
+  printf("                     ) (\n");
+  printf("                   _.' '._\n");
+  printf("                  `\"\"\"\"\"\"\"`\n");
+  printf("----------------------------------------------\n");
+}
 
-    scanf("%s", nome);
+void pageGoalkeeperWon()
+{
+  printf("  ____  ___  _     _____ ___ ____   ___  \n");
+  printf(" / ___|/ _ \\| |   | ____|_ _|  _ \\ / _ \\ \n");
+  printf("| |  _| | | | |   |  _|  | || |_) | | | |\n");
+  printf("| |_| | |_| | |___| |___ | ||  _ <| |_| |\n");
+  printf("\\____|\\___/|_____|_____|___|_| \\_\\\\___/ \n");
+  printf("\\ \\   / / ____| \\ | |/ ___| ____| | | | |\n");
+  printf(" \\ \\ / /|  _| |  \\| | |   |  _| | | | | |\n");
+  printf("  \\ V / | |___| |\\  | |___| |___| |_| |_|\n");
+  printf("   \\_/  |_____|_| \\_|\\____|_____|\\___/(_)\n");
 
-    fptr = fopen("scores.txt", "a");
+  printf("-----------------------------------------\n");
+  printf("               ___________\n");
+  printf("              '._==_==_=_.\n");
+  printf("              .-\\:      /-.\n");
+  printf("             | (|:.     |) |\n");
+  printf("              '-|:.     |-\n");
+  printf("                \\::.    /\n");
+  printf("                 '::. .'\n");
+  printf("                   ) (\n");
+  printf("                 _.' '._\n");
+  printf("                `\"\"\"\"\"\"\"`\n");
+  printf("-----------------------------------------\n");
+}
 
-    fprintf(fptr, "%s %d\n", nome, score);
-    fclose(fptr);
+int scoreRegisterSingle(int score)
+{
+  FILE *fptr;
+  char *nome;
+  int maxLength = 30;
 
-    free(nome);
+  nome = (char *)malloc(maxLength * sizeof(char));
 
-    return 0;
+  scanf("%s", nome);
+
+  fptr = fopen("scoreSingle.txt", "a");
+
+  fprintf(fptr, "%s %d\n", nome, score);
+  fclose(fptr);
+
+  free(nome);
+
+  return 0;
+}
+
+int scoreRegisterDual(int scorePlayer, int scoreGoalkeeper)
+{
+  FILE *fptr;
+  char *nome_player, *nome_goalkeeper;
+  int maxLength = 30;
+
+  nome_player = (char *)malloc(maxLength * sizeof(char));
+  nome_goalkeeper = (char *)malloc(maxLength * sizeof(char));
+
+  scanf("%s", nome_player);
+  scanf("%s", nome_goalkeeper);
+
+
+  fptr = fopen("scoreDual.txt", "a");
+
+  fprintf(fptr, "[%d] %s vs %s [%d]\n", scorePlayer, nome_player, nome_goalkeeper, scoreGoalkeeper);
+  fclose(fptr);
+
+  free(nome_player);
+  free(nome_goalkeeper);
+
+  return 0;
 }
 
 void movimentaGoleiroDualPlayer(int def, int alvo_x, int alvo_y)
@@ -540,8 +661,8 @@ int singlePlayer()
 
     }
 
-    pageScoreRegister(direct);
-    scoreRegister(ins);
+    pageScoreRegisterSingle(direct);
+    scoreRegisterSingle(ins);
 
     return ins;
 
@@ -553,6 +674,7 @@ int dualPlayer() {
     static int ch_batedor = 0, lado_batedor = 0, ch_goleiro = 0, lado_goleiro = 0;
     int ins = 0, outs = 0;
     int i = 0;
+    int direct;
 
     Coordenada esquerdaAlto = {40, 7};
     Coordenada esquerdaBaixo = {34, 13};
@@ -691,9 +813,16 @@ int dualPlayer() {
     timerDestroy();
 
     screenDestroy();
-    pageScoreRegister(ins); // TIRAR ESSE PARAMETRO AQUI!!!!
-    scoreRegister(ins);
 
+    if (ins > outs) {
+      direct = 0;
+
+    } else if (ins < outs) {
+      direct = 1;
+
+    }
+    pageScoreRegisterDual(direct);
+    scoreRegisterDual(ins, outs);
     return ins;
 }
 
