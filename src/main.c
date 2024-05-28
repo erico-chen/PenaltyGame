@@ -15,8 +15,8 @@ int x = 65, y = 35; // Ponto zero da bola
 int incX = 1, incY = 1;
 
 void readScores();
-void pageLost();
-void pageWon();
+void artPageLost();
+void artPageWon();
 
 typedef struct {
     int x;
@@ -37,9 +37,35 @@ int oddsDefesa()
     return x;
 }
 
-void printaBola()
+void movimentaBola(int nextX, int nextY)
+{
+    screenSetColor(CYAN, DARKGRAY);
+    
+    // LIMPA A ÁREA DA BOLA
+    screenGotoxy(x, y); 
+    printf("   "); 
+
+    
+    x = nextX;
+    y = nextY;
+
+    screenGotoxy(x, y);
+    printBola();
+
+}
+
+void printBola()
 {
     printf("⚽");
+}
+
+void printPlacar(int a, int b)
+{
+
+  screenSetColor(YELLOW, DARKGRAY);
+  screenGotoxy(56, 37);
+  printf("Batedor %d X %d Goleiro", a, b);
+
 }
 
 void printSprite(int x, int y, char sprite[SPRITE_HEIGHT][SPRITE_WIDTH + 1])
@@ -174,47 +200,102 @@ char goleiroDireitaAlto[SPRITE_HEIGHT][SPRITE_WIDTH + 1] = {
 {' ',' ',' ',' ',' ','|','_','_','_','_','_','|','_','_','_','_','_','_','_','_','_','<'},
 };
 
-void printPlacar(int a, int b)
+void artPageWon()
 {
+  printf("__     _____   ____  //\\   __     _______ _   _  ____ _____ _   _ _\n");
+  printf("\\ \\   / / _ \\ / ___||/_%c|  \\ \\   / / ____| \\ | |/ ___| ____| | | | |\n", '\\');
+  printf(" \\ \\ / / | | | |   | ____|  \\ \\ / /|  _| |  \\| | |   |  _| | | | | |\n");
+  printf("  \\ V /| |_| | |___|  _|_    \\ V / | |___| |\\  | |___| |___| |_| |_|\n");
+  printf("   \\_/  \\___/ \\____|_____|    \\_/  |_____|_| \\_|\\____|_____|\\___/(_)\n");
 
-    screenSetColor(YELLOW, DARKGRAY);
-    screenGotoxy(56, 37);
-    printf("Batedor %d X %d Goleiro", a, b);
-
+  printf("--------------------------------------------------------------------\n");
+  printf("                               ___________\n");
+  printf("                              '._==_==_=_.\n");
+  printf("                              .-\\:      /-.\n");
+  printf("                             | (|:.     |) |\n");
+  printf("                              '-|:.     |-\n");
+  printf("                                \\::.    /\n");
+  printf("                                 '::. .'\n");
+  printf("                                   ) (\n");
+  printf("                                 _.' '._\n");
+  printf("                                `\"\"\"\"\"\"\"`\n");
+  printf("---------------------------------------------------------------------\n");
 }
 
-
-void movimentaBola(int nextX, int nextY)
+void artPageLost()
 {
-    screenSetColor(CYAN, DARKGRAY);
-    
-    // LIMPA A ÁREA DA BOLA
-    screenGotoxy(x, y); 
-    printf("   "); 
+  // screenInit(0);
+  printf(" __     _____   ____  //\\    ____  _____ ____  ____  _____ _   _ _ \n");
+  printf(" \\ \\   / / _ \\ / ___||/_\\|  |  _ \\| ____|  _ \\|  _ \\| ____| | | | |\n");
+  printf("  \\ \\ / / | | | |   | ____| | |_) |  _| | |_) | | | |  _| | | | | |\n");
+  printf("   \\ V /| |_| | |___|  _|_  |  __/| |___|  _ <| |_| | |___| |_| |_|\n");
+  printf("    \\_/  \\___/ \\____|_____| |_|   |_____|_| \\_\\____/|_____|\\___/(_)\n");
+}
 
-    
-    x = nextX;
-    y = nextY;
+void artPagePlayerWon()
+{
+  printf("     _  ___   ____    _    ____   ___  ____  \n");
+  printf("    | |/ _ \\ / ___|  / \\  |  _ \\ / _ \\|  _ \\ \n");
+  printf(" _  | | | | | |  _  / _ \\ | | | | | | | |_) |\n");
+  printf("| |_| | |_| | |_| |/ ___ \\| |_| | |_| |  _ < \n");
+  printf("\\____/ \\___/ \\____/_/    \\_\\____/ \\___/|_| \\_\\\n");
+  printf("\\ \\   / / ____| \\ | |/ ___| ____| | | | |    \n");
+  printf(" \\ \\ / /|  _| |  \\| | |   |  _| | | | | |    \n");
+  printf("  \\ V / | |___| |\\  | |___| |___| |_| |_|    \n");
+  printf("   \\_/  |_____|_| \\_|\\____|_____|\\___/(_)    \n");
 
-    screenGotoxy(x, y);
-    printaBola();
+  printf("----------------------------------------------\n");
+  printf("                 ___________\n");
+  printf("                '._==_==_=_.\n");
+  printf("                .-\\:      /-.\n");
+  printf("               | (|:.     |) |\n");
+  printf("                '-|:.     |-\n");
+  printf("                  \\::.    /\n");
+  printf("                   '::. .'\n");
+  printf("                     ) (\n");
+  printf("                   _.' '._\n");
+  printf("                  `\"\"\"\"\"\"\"`\n");
+  printf("----------------------------------------------\n");
+}
 
+void artPageGoalkeeperWon()
+{
+  printf("  ____  ___  _     _____ ___ ____   ___  \n");
+  printf(" / ___|/ _ \\| |   | ____|_ _|  _ \\ / _ \\ \n");
+  printf("| |  _| | | | |   |  _|  | || |_) | | | |\n");
+  printf("| |_| | |_| | |___| |___ | ||  _ <| |_| |\n");
+  printf("\\____|\\___/|_____|_____|___|_| \\_\\\\___/ \n");
+  printf("\\ \\   / / ____| \\ | |/ ___| ____| | | | |\n");
+  printf(" \\ \\ / /|  _| |  \\| | |   |  _| | | | | |\n");
+  printf("  \\ V / | |___| |\\  | |___| |___| |_| |_|\n");
+  printf("   \\_/  |_____|_| \\_|\\____|_____|\\___/(_)\n");
+
+  printf("-----------------------------------------\n");
+  printf("               ___________\n");
+  printf("              '._==_==_=_.\n");
+  printf("              .-\\:      /-.\n");
+  printf("             | (|:.     |) |\n");
+  printf("              '-|:.     |-\n");
+  printf("                \\::.    /\n");
+  printf("                 '::. .'\n");
+  printf("                   ) (\n");
+  printf("                 _.' '._\n");
+  printf("                `\"\"\"\"\"\"\"`\n");
+  printf("-----------------------------------------\n");
 }
 
 void pageWelcome()
 {
 
-    screenInit(0);
-
-    printf(" ____                  _ _            ____                      \n");
-    printf("|  _ \\ ___ _ __   __ _| | |_ _   _   / ___| __ _ _ __ ___   ___ \n");
-    printf("| |_) / _ \\ '_ \\ / _` | | __| | | | | |  _ / _` | '_ ` _ \\ / _ \\\n");
-    printf("|  __/  __/ | | | (_| | | |_| |_| | | |_| | (_| | | | | | |  __/\n");
-    printf("|_|   \\___|_| |_|\\__,_|_|\\__|\\__, |  \\____|\\__,_|_| |_| |_|\\___|\n");
-    printf("                             |___/                               \n");
-
-    printf("\nDigite o número da opção escolhida:\n\n");
-    printf(" [1]   Modo um jogador\n [2]   Modo dois jogadores\n [3]   Como jogar\n [4]   Pontuações salvas\n");
+  screenInit(0);
+  printf(" ____                  _ _            ____                      \n");
+  printf("|  _ \\ ___ _ __   __ _| | |_ _   _   / ___| __ _ _ __ ___   ___ \n");
+  printf("| |_) / _ \\ '_ \\ / _` | | __| | | | | |  _ / _` | '_ ` _ \\ / _ \\\n");
+  printf("|  __/  __/ | | | (_| | | |_| |_| | | |_| | (_| | | | | | |  __/\n");
+  printf("|_|   \\___|_| |_|\\__,_|_|\\__|\\__, |  \\____|\\__,_|_| |_| |_|\\___|\n");
+  printf("                             |___/                               \n");
+  printf("\nDigite o número da opção escolhida:\n\n");
+  printf(" [1]   Modo um jogador\n [2]   Modo dois jogadores\n [3]   Como jogar\n [4]   Pontuações salvas\n");
 
 }
 
@@ -265,6 +346,41 @@ void pageScores()
   
 }
 
+void pageScoreRegisterSingle(int direct)
+{
+  screenInit(0);
+  keyboardInit();
+
+  if (direct == 0) { 
+    artPageWon();
+  } else if (direct == 1) {
+    artPageLost();
+  }
+
+  printf("\nDigita teu nome, jogador!");
+  scanf("");
+
+}
+
+void pageScoreRegisterDual(int direct)
+
+{
+  screenInit(0);
+  keyboardInit();
+
+  if (direct == 0) {
+    artPagePlayerWon();
+  } else if (direct == 1) {
+    artPageGoalkeeperWon();
+  }
+
+  printf("\nDigita teu nome, jogador!");
+  scanf("");
+  printf("\nDigita teu nome, goleiro!");
+  scanf("");
+
+}
+
 void readScoresSingle()
 {
   FILE *fptr;
@@ -303,124 +419,6 @@ void readScoresDual()
     }
 
     fclose(fptr);
-}
-
-void pageScoreRegisterSingle(int direct)
-{
-  screenInit(0);
-  keyboardInit();
-
-  if (direct == 0) { 
-    pageWon();
-  } else if (direct == 1) {
-    pageLost();
-  }
-
-  printf("\nDigita teu nome, jogador!");
-  scanf("");
-
-}
-
-void pageScoreRegisterDual(int direct)
-{
-  screenInit(0);
-  keyboardInit();
-
-  if (direct == 0) {
-    pagePlayerWon();
-  } else if (direct == 1) {
-    pageGoalkeeperWon();
-  }
-
-  printf("\nDigita teu nome, jogador!");
-  scanf("");
-  printf("\nDigita teu nome, goleiro!");
-  scanf("");
-
-}
-
-void pageWon()
-{
-  printf("__     _____   ____  //\\   __     _______ _   _  ____ _____ _   _ _\n");
-  printf("\\ \\   / / _ \\ / ___||/_%c|  \\ \\   / / ____| \\ | |/ ___| ____| | | | |\n", '\\');
-  printf(" \\ \\ / / | | | |   | ____|  \\ \\ / /|  _| |  \\| | |   |  _| | | | | |\n");
-  printf("  \\ V /| |_| | |___|  _|_    \\ V / | |___| |\\  | |___| |___| |_| |_|\n");
-  printf("   \\_/  \\___/ \\____|_____|    \\_/  |_____|_| \\_|\\____|_____|\\___/(_)\n");
-
-  printf("--------------------------------------------------------------------\n");
-  printf("                               ___________\n");
-  printf("                              '._==_==_=_.\n");
-  printf("                              .-\\:      /-.\n");
-  printf("                             | (|:.     |) |\n");
-  printf("                              '-|:.     |-\n");
-  printf("                                \\::.    /\n");
-  printf("                                 '::. .'\n");
-  printf("                                   ) (\n");
-  printf("                                 _.' '._\n");
-  printf("                                `\"\"\"\"\"\"\"`\n");
-  printf("---------------------------------------------------------------------\n");
-}
-
-void pageLost()
-{
-  // screenInit(0);
-  printf(" __     _____   ____  //\\    ____  _____ ____  ____  _____ _   _ _ \n");
-  printf(" \\ \\   / / _ \\ / ___||/_\\|  |  _ \\| ____|  _ \\|  _ \\| ____| | | | |\n");
-  printf("  \\ \\ / / | | | |   | ____| | |_) |  _| | |_) | | | |  _| | | | | |\n");
-  printf("   \\ V /| |_| | |___|  _|_  |  __/| |___|  _ <| |_| | |___| |_| |_|\n");
-  printf("    \\_/  \\___/ \\____|_____| |_|   |_____|_| \\_\\____/|_____|\\___/(_)\n");
-}
-
-void pagePlayerWon()
-{
-  printf("     _  ___   ____    _    ____   ___  ____  \n");
-  printf("    | |/ _ \\ / ___|  / \\  |  _ \\ / _ \\|  _ \\ \n");
-  printf(" _  | | | | | |  _  / _ \\ | | | | | | | |_) |\n");
-  printf("| |_| | |_| | |_| |/ ___ \\| |_| | |_| |  _ < \n");
-  printf("\\____/ \\___/ \\____/_/    \\_\\____/ \\___/|_| \\_\\\n");
-  printf("\\ \\   / / ____| \\ | |/ ___| ____| | | | |    \n");
-  printf(" \\ \\ / /|  _| |  \\| | |   |  _| | | | | |    \n");
-  printf("  \\ V / | |___| |\\  | |___| |___| |_| |_|    \n");
-  printf("   \\_/  |_____|_| \\_|\\____|_____|\\___/(_)    \n");
-
-  printf("----------------------------------------------\n");
-  printf("                 ___________\n");
-  printf("                '._==_==_=_.\n");
-  printf("                .-\\:      /-.\n");
-  printf("               | (|:.     |) |\n");
-  printf("                '-|:.     |-\n");
-  printf("                  \\::.    /\n");
-  printf("                   '::. .'\n");
-  printf("                     ) (\n");
-  printf("                   _.' '._\n");
-  printf("                  `\"\"\"\"\"\"\"`\n");
-  printf("----------------------------------------------\n");
-}
-
-void pageGoalkeeperWon()
-{
-  printf("  ____  ___  _     _____ ___ ____   ___  \n");
-  printf(" / ___|/ _ \\| |   | ____|_ _|  _ \\ / _ \\ \n");
-  printf("| |  _| | | | |   |  _|  | || |_) | | | |\n");
-  printf("| |_| | |_| | |___| |___ | ||  _ <| |_| |\n");
-  printf("\\____|\\___/|_____|_____|___|_| \\_\\\\___/ \n");
-  printf("\\ \\   / / ____| \\ | |/ ___| ____| | | | |\n");
-  printf(" \\ \\ / /|  _| |  \\| | |   |  _| | | | | |\n");
-  printf("  \\ V / | |___| |\\  | |___| |___| |_| |_|\n");
-  printf("   \\_/  |_____|_| \\_|\\____|_____|\\___/(_)\n");
-
-  printf("-----------------------------------------\n");
-  printf("               ___________\n");
-  printf("              '._==_==_=_.\n");
-  printf("              .-\\:      /-.\n");
-  printf("             | (|:.     |) |\n");
-  printf("              '-|:.     |-\n");
-  printf("                \\::.    /\n");
-  printf("                 '::. .'\n");
-  printf("                   ) (\n");
-  printf("                 _.' '._\n");
-  printf("                `\"\"\"\"\"\"\"`\n");
-  printf("-----------------------------------------\n");
 }
 
 int scoreRegisterSingle(int score)
@@ -467,7 +465,7 @@ int scoreRegisterDual(int scorePlayer, int scoreGoalkeeper)
   return 0;
 }
 
-void movimentaGoleiroDualPlayer(int def, int alvo_x, int alvo_y)
+void movimentaGoleiro(int def, int alvo_x, int alvo_y)
 {
   if (def == 0 || def == 210){
     printSprite(59, 6, cleanGoleiro);
@@ -565,7 +563,7 @@ int singlePlayer()
 	            }
 	            alvo_x = esquerdaBaixo.x;
 	            alvo_y = esquerdaBaixo.y;
-              movimentaGoleiroDualPlayer(def, alvo_x, alvo_y);
+              movimentaGoleiro(def, alvo_x, alvo_y);
               
             }
 
@@ -579,7 +577,7 @@ int singlePlayer()
 
 	            alvo_x = meioBaixo.x;
 	            alvo_y = meioBaixo.y;
-              movimentaGoleiroDualPlayer(def, alvo_x, alvo_y);
+              movimentaGoleiro(def, alvo_x, alvo_y);
 
             }
 
@@ -592,7 +590,7 @@ int singlePlayer()
 	            }
 	            alvo_x = direitaBaixo.x;
 	            alvo_y = direitaBaixo.y;
-              movimentaGoleiroDualPlayer(def, alvo_x, alvo_y);
+              movimentaGoleiro(def, alvo_x, alvo_y);
             }
 
             else if (lado_batedor == 216) { // A+W
@@ -604,7 +602,7 @@ int singlePlayer()
 	            }
 	            alvo_x = esquerdaAlto.x;
 	            alvo_y = esquerdaAlto.y;
-              movimentaGoleiroDualPlayer(def, alvo_x, alvo_y);
+              movimentaGoleiro(def, alvo_x, alvo_y);
             }
 
             else if (lado_batedor == 234) { // W+S
@@ -616,7 +614,7 @@ int singlePlayer()
 	            }
 	            alvo_x = meioAlto.x;
 	            alvo_y = meioAlto.y;
-              movimentaGoleiroDualPlayer(def, alvo_x, alvo_y);
+              movimentaGoleiro(def, alvo_x, alvo_y);
             }
 
             else if (lado_batedor == 219) { // D+W
@@ -628,7 +626,7 @@ int singlePlayer()
 	            }
 	            alvo_x = direitaAlto.x;
 	            alvo_y = direitaAlto.y;
-              movimentaGoleiroDualPlayer(def, alvo_x, alvo_y);
+              movimentaGoleiro(def, alvo_x, alvo_y);
             }
 
             else{ //chutou pra fora
@@ -723,7 +721,7 @@ int dualPlayer() {
 
 	            alvo_x = esquerdaBaixo.x;
 	            alvo_y = esquerdaBaixo.y;
-              movimentaGoleiroDualPlayer(lado_goleiro, alvo_x, alvo_y);
+              movimentaGoleiro(lado_goleiro, alvo_x, alvo_y);
             }
 
             else if (lado_batedor == 230) { // S+S
@@ -736,7 +734,7 @@ int dualPlayer() {
 
 	            alvo_x = meioBaixo.x;
 	            alvo_y = meioBaixo.y;
-              movimentaGoleiroDualPlayer(lado_goleiro, alvo_x, alvo_y);
+              movimentaGoleiro(lado_goleiro, alvo_x, alvo_y);
             }
 
             else if (lado_batedor == 215) { // D+S
@@ -749,7 +747,7 @@ int dualPlayer() {
 
 	            alvo_x = direitaBaixo.x;
 	            alvo_y = direitaBaixo.y;
-              movimentaGoleiroDualPlayer(lado_goleiro, alvo_x, alvo_y);
+              movimentaGoleiro(lado_goleiro, alvo_x, alvo_y);
             }
 
             else if (lado_batedor == 216) { // A+W
@@ -762,7 +760,7 @@ int dualPlayer() {
 
 	            alvo_x = esquerdaAlto.x;
 	            alvo_y = esquerdaAlto.y;
-              movimentaGoleiroDualPlayer(lado_goleiro, alvo_x, alvo_y);
+              movimentaGoleiro(lado_goleiro, alvo_x, alvo_y);
             }
 
             else if (lado_batedor == 234) { // S+W
@@ -775,7 +773,7 @@ int dualPlayer() {
 
 	            alvo_x = meioAlto.x;
 	            alvo_y = meioAlto.y;
-              movimentaGoleiroDualPlayer(lado_goleiro, alvo_x, alvo_y);
+              movimentaGoleiro(lado_goleiro, alvo_x, alvo_y);
             }
 
             else if (lado_batedor == 219) { // D+W
@@ -788,7 +786,7 @@ int dualPlayer() {
 
 	            alvo_x = direitaAlto.x;
 	            alvo_y = direitaAlto.y;
-              movimentaGoleiroDualPlayer(lado_goleiro, alvo_x, alvo_y);
+              movimentaGoleiro(lado_goleiro, alvo_x, alvo_y);
             }
 
             else{ //chutou pra fora
@@ -874,10 +872,3 @@ int main()
 
     return 0;
 }
-
-
-// Essa será a coordenada 0 da bola
-// Ponto zero: 50,30
-// Meio do gol: 50, 10
-// Lado esquerdo gol: 30, 10
-// Lado direito gol: 70, 10
