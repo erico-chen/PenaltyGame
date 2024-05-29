@@ -498,8 +498,9 @@ void movimentaGoleiro(int def, int alvo_x, int alvo_y)
 {
   if (def == 0 || def == 210){
     printSprite(59, 6, cleanGoleiro);
-    movimentaBola(alvo_x,alvo_y);
     printSprite(35, 9, goleiroEsquerdaBaixo);
+    movimentaBola(alvo_x,alvo_y);
+    screenUpdate();
     sleep(1);
     printSprite(35, 9, cleanGoleiroEsquerdaBaixo);
   }
@@ -508,38 +509,43 @@ void movimentaGoleiro(int def, int alvo_x, int alvo_y)
     printSprite(59, 6, cleanGoleiro);
     movimentaBola(alvo_x,alvo_y);
     printSprite(59, 6, goleiro);
+    screenUpdate();
     sleep(1);
     printSprite(59, 6, cleanGoleiro);
   }
 
   else if (def == 2 || def == 213){
     printSprite(59, 6, cleanGoleiro);
-    movimentaBola(alvo_x,alvo_y);
     printSprite(82, 9, goleiroDireitaBaixo);
+    movimentaBola(alvo_x,alvo_y);
+    screenUpdate();
     sleep(1);
     printSprite(82, 9, cleanGoleiroDireitaBaixo);
   }
 
   else if (def == 3 || def == 221){
     printSprite(59, 6, cleanGoleiro);
-    movimentaBola(alvo_x,alvo_y);
     printSprite(36, 7, goleiroEsquerdaAlto);
+    movimentaBola(alvo_x,alvo_y);
+    screenUpdate();
     sleep(1);
     printSprite(36, 7, cleanGoleiroEsquerdaAlto);
   }
   
   else if (def == 4 || def == 223){
     printSprite(59, 6, cleanGoleiro);
-    movimentaBola(alvo_x,alvo_y);
     printSprite(59, 5, goleiroMeioAlto);
+    movimentaBola(alvo_x,alvo_y);
+    screenUpdate();
     sleep(1);
     printSprite(59, 5, cleanGoleiroMeioAlto);
   }
 
   else if (def == 5 || def == 224){
     printSprite(59, 6, cleanGoleiro);
-    movimentaBola(alvo_x,alvo_y);
     printSprite(80,7,goleiroDireitaAlto);
+    movimentaBola(alvo_x,alvo_y);
+    screenUpdate();
     sleep(1);
     printSprite(80, 7, cleanGoleiroDireitaAlto);
   }
