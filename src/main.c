@@ -14,27 +14,56 @@
 int x = 65, y = 35; // Ponto zero da bola
 int incX = 1, incY = 1;
 
-void readScores();
+void printBola();
 void artPageLost();
 void artPageWon();
+void readScoresSingle();
+void readScoresDual();
 
 typedef struct {
     int x;
     int y;
 }Coordenada;
 
-int oddsDefesa()
+int oddsDefesa(int lado)
 {
-    // 0 = esquerda baixo
-    // 1 = meio baixo
-    // 2 = direita baixo
-    // 3 = esquerda alto
-    // 4 = meio alto
-    // 5 = direita alto
-    int x;
+    // 0 = esquerda baixo, 1 = meio baixo, 2 = direita baixo
+    // 3 = esquerda alto,  4 = meio alto,  5 = direita alto
+
+    int x, y, numeros[3];
+    if (lado == 212){
+      numeros[0] = 0;
+    }
+    else if(lado == 230){
+      numeros[0] = 1;
+    }
+    else if(lado == 215){
+      numeros[0] = 2;
+    }
+    else if(lado == 216){
+      numeros[0] = 3;
+    }
+    else if(lado == 234){
+      numeros[0] = 4;
+    }
+    else if(lado == 219){
+      numeros[0] = 5;
+    }
+    
     srand(time(NULL));
-    x = rand() % 6;
-    return x;
+    for(int i = 1;i<3;i++){
+        x = rand() % 6;
+        numeros[i]=x;
+    }
+
+    int tamanho = sizeof(numeros) / sizeof(numeros[0]);
+
+    srand(time(NULL));
+
+     y = rand() % tamanho;
+    int indice_aleatorio = numeros[y];
+
+    return indice_aleatorio;
 }
 
 void movimentaBola(int nextX, int nextY)
@@ -411,7 +440,7 @@ void readScoresDual()
 
   if (fptr == NULL) {
       perror("Erro ao abrir o arquivo");
-      return 1;
+      exit(1);
   }
 
   while (fscanf(fptr, "[%d] %s vs %s [%d]\n", &gols, player, goalkeeper, &defs) == 4) {
@@ -550,7 +579,7 @@ int singlePlayer()
 
       lado_batedor = batedor_1+batedor_2;
 
-      int def = oddsDefesa();
+      int def = oddsDefesa(lado_batedor);
       int alvo_x = 0, alvo_y = 0;
       
       if (lado_batedor == 212) { // A+S
